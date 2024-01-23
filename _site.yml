@@ -1,0 +1,12 @@
+name: "STA-631-Website-Creation"
+title: "Karlmarx Odhiambo Portfolio"
+description: |
+  Karlmarx Odhiambo Portfolio
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article
