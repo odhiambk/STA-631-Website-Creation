@@ -1,0 +1,14 @@
+---
+title: "Professional Summary"
+author: "Karlmarx Odhiambo"
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Professional Summary
+
+I am a dedicated and results-driven graduate student pursuing a Master of Science in Data Science from Grand Valley State University, building upon a strong foundation in Actuarial Science with a Bachelor of Science degree. With a GPA ranking in the top 10% of my class and practical experience as a Financial Analyst at CIC Insurance, I demonstrate a keen aptitude for statistical analysis, machine learning, and data visualization. Proficient in Python and R programming languages, I have applied these skills to develop practical data analysis tools and leverage advanced analytics to derive meaningful insights from complex datasets. My ability to design and implement machine learning models, coupled with strong communication skills, positions me as a valuable asset for any organization seeking to drive data-driven decision-making processes and innovative solutions.

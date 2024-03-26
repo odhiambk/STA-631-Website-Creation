@@ -1,0 +1,410 @@
+---
+title: "Logistic Regression"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the necessary packages
+
+Again, we will use two packages from Posit: `{tidyverse}` and `{tidymodels}`.
+
+- Below a new R code chunk and write the code to:
+  - Load `{tidyverse}` and `{tidymodels}` and any other packages you want to use.
+- Give your R code chunk a meaningful name, then run your code chunk or knit your document.
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(ggplot2)
+```
+
+
+## Load the data
+
+### The data
+
+The data we are working with is again from the OpenIntro site.
+From OpenIntro's [description of the data](https://www.openintro.org/data/index.php?data=resume):
+
+> This experiment data comes from a study that sought to understand the influence of race and gender on job application callback rates.
+> The study monitored job postings in Boston and Chicago for several months during 2001 and 2002 and used this to build up a set of test cases. 
+> Over this time period, the researchers randomly generating résumés to go out to a job posting, such as years of experience and education details, to create a realistic-looking résumé.
+> They then randomly assigned a name to the résumé that would communicate the applicant's gender and race.
+> The first names chosen for the study were selected so that the names would predominantly be recognized as belonging to black or white individuals.
+> For example, Lakisha was a name that their survey indicated would be interpreted as a black woman, while Greg was a name that would generally be interpreted to be associated with a white male.
+
+Review the description page.
+If you still have questions, review the **Source** (also linked to shortly) at the bottom of the description page.
+On an initial reading, there are some concerns with how this study is designed.
+In [the article](https://www.nber.org/system/files/working_papers/w9873/w9873.pdf), the authors do point out some of these concerns (in Sections 3.5 and 5.1).
+
+Read in the `resume` **CSV** file that is in `day01-logistic/data`.
+
+- Below, create a new R code chunk and write the code to:
+  - *Read* in the *CSV* file from the `data` folder and store it in an R dataframe called `resume`.
+- Give your R code chunk a meaningful name, then run your code chunk or knit your document.
+
+```{r load data}
+resume <- read.csv("C:/Users/karlm/OneDrive/Documents/STA 631/activity06-logistic-regression/day01-logistic/data/resume.csv")
+```
+
+
+Recall that you can use `dplyr::glimpse` to see some meta information about the R data frame.
+After doing this and your review of the data's description page, answer the following questions:
+
+```{r}
+dplyr::glimpse
+```
+
+
+1. Is this an observational study or an experiment?
+  Explain.
+
+*This is an observational study because the researchers aim to understand the influence of race and gender on job application callback rates. They use the data already provided to come to a conclusion*
+
+2. The variable of interest is `received_callback`.
+  What type of variable is this? *response/dependent variable*
+  What do the values represent? *the values represent the proportions of applicants who received call backs on the applications*
+
+
+3. For `received_callback`, create an appropriate data visualization using `{ggplot2}`.
+  Be sure to provide more descriptive labels (both axes labels and value labels - there are many ways to do this) as well as an appropriate title.
+
+```{r}
+# ggplot2
+ggplot(data = resume, 
+       aes(x = received_callback)) + 
+  geom_bar(fill = "red") + 
+  labs(title = "Total Number of People who Recieved Callback",
+       x = "Received Callback",
+       y = "Total Number of People") + 
+  theme_bw()
+```
+
+```{r}
+# Create a bar plot for received_callback
+received_callback_plot <- resume |>
+  ggplot(aes(x = received_callback)) +
+  geom_bar(aes(y = ..prop.., group = 1), fill = "skyblue") +
+  geom_text(aes(label = scales::percent(..prop..),
+                y = ..prop..), 
+            stat = "count", vjust = -0.5) +
+  labs(title = "Proportion of Applicants Who Received Callbacks",
+       x = "Received Callback",
+       y = "Proportion") +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal()
+
+
+received_callback_plot
+```
+
+
+4. Below, I provide you with a numerical summary table that should reiterate (i.e., provides numerical values) your plot in (3).
+  First, look at each line of code and describe what I am doing.
+  Then, replace "verbatim" with "r" before the code chunk title to produce this table.
+  
+```{r callback_frequency_table}
+resume %>% 
+  mutate(received_callback = case_when(
+    received_callback == 0 ~ "No",
+    received_callback == 1 ~ "Yes"
+  )) %>% 
+  count(received_callback) %>% 
+  mutate(percent = round(n / sum(n) * 100, 2)) %>% 
+  knitr::kable()
+```
+
+
+
+5. Using the output from (3) and (4), what do you notice?
+
+*92% of applicants did not receive callbacks.*
+
+## Probability and odds
+
+Using your output from (3) and (4), answer the following questions:
+
+6. What is the probability that a randomly selected résumé/person will be called back?
+
+*0.08*
+
+7. What are the [**odds**](https://en.wikipedia.org/wiki/Odds) that a randomly selected résumé/person will be called back?
+
+*0.08 / (1 - 0.08)* = *0.087*
+
+## Logistic regression
+
+Logistic regression is one form of a *generalized linear model*.
+For this type of model, the outcome/response variable takes one one of two levels (sometimes called a binary variable or a two-level categorical variable).
+
+In our activity, $Y_i$ takes the value 1 if a résumé receives a callback and 0 if it did not.
+Generally, we will let the probability of a "success" (a 1) be $p_i$ and the probability of a "failure" (a 0) be $1 - p_i$.
+Therefore, the odds of a "success" are:
+
+$$
+\frac{Pr(Y_i = 1)}{Pr(Y_i = 0)} = \frac{p_i}{1-p_i}
+$$
+
+From your reading, you saw that we use the *logit function* (or *log odds*) to model binary outcome variables:
+
+$$
+\begin{equation*}
+\log\left(\frac{p_i}{1-p_i}\right) = \beta_0 + \beta_1 X
+\end{equation*}
+$$
+
+To keep things simpler, we will first explore a logistic regression model with a two-level categorical explanatory variable: `race` - the inferred race associated to the first name on the résumé.
+Below is a two-way table (also known as a contingency table or crosstable), where the rows are the response variable levels, the columns are the explanatory variable levels, and the cells are the percent (and number of in parentheses).
+Note that the values in each column add to 100%.
+Replace "verbatim" with "r" before the code chunk title to produce this table.
+
+```{r crosstable}
+resume %>% 
+  mutate(received_callback = case_when(
+    received_callback == 0 ~ "No",
+    received_callback == 1 ~ "Yes"
+  ),
+  race = case_when(
+    race == "black" ~ "Black",
+    race == "white" ~ "White"
+  )) %>% 
+  group_by(race, received_callback) %>% 
+  summarise(n = n()) %>% 
+  mutate(percent = round(n / sum(n) * 100, 2),
+         percent_n = glue::glue("{percent} ({n})")) %>% 
+  select(received_callback, race, percent_n) %>% 
+  pivot_wider(
+    names_from = race,
+    values_from = percent_n
+  ) %>% 
+  knitr::kable()
+```
+
+Using the above table, answer the following question:
+
+6. What is the probability that a randomly selected résumé/person perceived as Black will be called back?
+
+*0.0645*
+
+7. What are the **odds** that a randomly selected résumé/person perceived as Black will be called back?
+
+*0.0645 / (1 - 0.0645* = *0.0689*
+
+This process of calculating conditional (e.g., if a résumé/person perceived as Black is called back) odds will be helpful as we fit our logistic model.
+We will now begin to use the `{tidymodel}` method for fitting models.
+A similar approach could be used for linear regression models and you are encouraged to find out how to do this in your past activities.
+
+- Replace "verbatim" with "r" before the code chunk title to produce the logistic model output.
+  
+```{r logistic-model}
+# The {tidymodels} method for logistic regression requires that the response be a factor variable
+resume <- resume %>% 
+  mutate(received_callback = as.factor(received_callback))
+
+logistic_spec <- logistic_reg() %>%
+  set_engine("glm")
+
+logistic_spec
+
+resume_mod <- logistic_spec %>%
+  fit(received_callback ~ race, data = resume, family = "binomial")
+
+tidy(resume_mod) %>% 
+  knitr::kable(digits = 3)
+```
+
+After doing this, respond to the following questions:
+
+8. Write the estimated regression equation.
+  Round to 3 digits.
+  
+$
+\[ \log\left(\frac{p_i}{1-p_i}\right) = -2.408 + 0.221 \times \text{race\_white} \]
+$
+
+Regression equation = -2.408 + 0.221 * race_white
+
+9. Using your equation in (8), write the *simplified* estimated regression equation corresponding to résumés/persons perceived as Black.
+  Round to 3 digits.
+
+```{r}
+pi_black <- exp(-2.408) / (1 + exp(-2.408))
+pi_black_rounded <- round(pi_black, 3)
+pi_black_rounded
+```
+
+
+Based on your model, if a randomly selected résumé/person perceived as Black,
+
+10. What are the log-odds that they will be called back?
+
+```{r}
+log_odds_black <- log(pi_black / (1 - pi_black))
+log_odds_black
+```
+
+
+11. What are the odds that they will be called back?
+  How does this relate back to your answer from (7)?
+  *Hint*: In (9) you obtained the log-odds (i.e., the natural log-odds).
+  How can you back-transform this value to obtain the odds?
+
+```{r}
+odds_black <- exp(log_odds_black)
+odds_black
+```
+
+
+12. What is the probability that will be called back?
+  How does this related back to your answer from (6)?
+  *Hint* Use the odds in (11) to calculate this value.
+
+```{r}
+pi_from_odds_black <- odds_black / (1 + odds_black)
+pi_from_odds_black
+```
+
+
+
+13. How does the output from following code relate to what you obtained before (8)?
+  How can you use it help you answer (12)?
+  Replace "verbatim" with "r" before the code chunk title to produce the logistic model output.
+
+```{r logistic-model}
+tidy(mult_log_mod, exponentiate = TRUE, conf.int = TRUE) %>% 
+  knitr::kable(digits = 3)
+```
+
+
+## Challenge: Extending to Mulitple Logistic Regression
+
+We will explore the following question: Is there a difference in call back rates in Chicago jobs, after adjusting for the an applicant's years of experience, years of college, race, and gender?
+Specifically, we will fit the following model, where $\hat{p}$ is the estimated probability of receiving a callback for a job in Chicago.
+
+$$
+\begin{equation*}
+\log\left(\frac{\hat{p}}{1-\hat{p}}\right) = \hat\beta_0 + \hat\beta_1 \times (\texttt{years\\_experience}) + \hat\beta_2 \times (\texttt{race:White}) + \hat\beta_3 \times (\texttt{gender:male})
+\end{equation*}
+$$
+
+Note that the researchers have the variable labeled `gender`.
+Like with `race`, they limited their resume/name generation to only two categorizations: "male" and "female".
+The authors do not address this decision in their article or provide any context as to what they mean by "gender".
+
+- Replace "verbatim" with "r" before the code chunk title to produce this table.
+
+```{r resume-subset}
+resume_subet <- resume %>% 
+  filter(job_city == "Chicago") %>% 
+  mutate(race = case_when(
+         race == "white" ~ "White",
+         TRUE ~ "Black"
+       ),
+       gender = case_when(
+         gender == "f" ~ "female",
+         TRUE ~ "male"
+       )) %>% 
+  select(received_callback, years_experience, race, gender)
+```
+
+Describe what the above code does in the context of this problem.
+
+
+
+## Relationship Exploration
+
+There are many variables in this model.
+Let's explore each explanatory variable's relationship with the response variable.
+Note that I tried to explore this using `GGally::ggbivariate`, but kept running into an error that I did not have time to explore.
+
+- Create a new R code chunk and create an appropriate data visualization to explore the relationship between `resume_subet` and each of the explanatory variables, then run your code chunk or knit your document.
+
+After doing this, answer the following question:
+
+14. Describe any patterns. What do you notice?
+
+
+## Fitting the model
+
+Aside: I kept running into an issue using `{tidymodels}` to fit this model so I defaulted back to a method that I know works using `glm`.
+I will keep exploring why I was experiencing issues and update you all with a more modern method later this semester.
+Using the logistic model code above, create a new code chunk below to fit the model to address our research question.
+
+Focusing on the estimated coefficient for `years_experience`, we would say:
+
+> For each additional year of experience for an applicant in Chicago, we expect the *log odds* of an applicant receiving a call back to increase by 0.045 units.
+> Assuming applicants have similar time in spent in college, similar inferred races, and similar inferred gender.
+
+This interpretation is somewhat confusing because we are describing this in *log odds*.
+Fortunately, we can convert these back to odds using the following transformation:
+
+$$
+\text{odds} = e^{\log(\text{odds})}
+$$
+
+
+You saw how to do this in (13)
+
+After doing this, answer the following question:
+
+15. Interpret the estimated coefficient for `years_experience`.
+
+## Assessing model fit
+
+Now we want to check the residuals of this model to check the model's fit.
+As we saw for multiple linear regression, there are various kinds of residuals that try to adjust for various features of the data. 
+Two new residuals to explore are *Pearson residuals* and *Deviance residuals*.
+
+**Pearson residuals**
+
+The Pearson residual corrects for the unequal variance in the raw residuals by dividing by the standard deviation.
+
+$$
+\text{Pearson}_i = \frac{y_i - \hat{p}_i}{\sqrt{\hat{p}_i(1 - \hat{p}_i)}}
+$$
+
+**Deviance residuals**
+
+Deviance residuals are popular because the sum of squares of these residuals is the deviance statistic.
+We will talk more about this later in the semester.
+
+$$
+d_i = \text{sign}(y_i - \hat{p}_i)\sqrt{2\Big[y_i\log\Big(\frac{y_i}{\hat{p}_i}\Big) + (1 - y_i)\log\Big(\frac{1 - y_i}{1 - \hat{p}_i}\Big)\Big]}
+$$
+
+Since Pearson residuals are similar to residuals that we have already explored, we will instead focus on the deviance residuals.
+
+- Replace "verbatim" with "r" before the code chunk title to produce this table. 
+  You might need to update other R objects in this code - my model was called `mult_log_mod`
+  
+```{r residual-plots}
+# To store residuals and create row number variable
+mult_log_aug <- augment(mult_log_mod, type.predict = "response", 
+                      type.residuals = "deviance") %>% 
+                      mutate(id = row_number())
+
+# Plot residuals vs fitted values
+ggplot(data = mult_log_aug, aes(x = .fitted, y = .resid)) + 
+geom_point() + 
+geom_hline(yintercept = 0, color = "red") + 
+labs(x = "Fitted values", 
+     y = "Deviance residuals", 
+     title = "Deviance residuals vs. fitted")
+     
+# Plot residuals vs row number
+ggplot(data = mult_log_aug, aes(x = id, y = .resid)) + 
+geom_point() + 
+geom_hline(yintercept = 0, color = "red") + 
+labs(x = "id", 
+     y = "Deviance residuals", 
+     title = "Deviance residuals vs. id")
+```
+
+Here we produced two residual plots: the deviance residuals against the fitted values and the deviance variables against the index id (an index plot).
+The index plot allows us to easily see some of the more extreme observations - there are a lot ($|d_i| > 2$ is quiet alarming).
+The residual plot may look odd (why are there two distinct lines?!?), but this is a pretty typical shape when working with a binary response variable (the original data is really either a 0 or a 1).
+In general because there are so many extreme values in the index plot, this model leaves room for improvement.

@@ -3,6 +3,24 @@ title: "Karlmarx Odhiambo Portfolio"
 description: |
   Welcome to the website. I hope you enjoy it!
 site: distill::distill_website
+
+navbar:
+  left:
+    - text: "Professional Summary"
+      href: "professional_summary.html"
+    - text: "myCV"
+      href: "my_cv.html"
+    - text: "SLR"
+      href: "slr.html"
+    - text: "MLR"
+      href: "mlr.html"
+    - text: "Logistic Regression"
+      href: "logistic_regression"
+    - text: "Project Proposal"
+      href: "project_proposal.html"
+
+output:
+  distill::distill_article
 ---
 
 ```{r setup, include=FALSE}
@@ -13,6 +31,4 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Learn more about publishing to GitHub Pages at:
 # https://rstudio.github.io/distill/publish_website.html#github-pages
-
 ```
-

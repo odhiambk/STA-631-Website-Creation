@@ -1,0 +1,82 @@
+---
+title: "myCV"
+author: "Karlmarx Odhiambo"
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# KARLMARX ODHIAMBO
+Allendale Charter Township, United States 49401  
+Phone: +1 616-290-7124  
+Email: karlmarxorengo@gmail.com  
+LinkedIn: [Karlmarx Odhiambo](https://linkedin.com/in/karlmarx-odhiambo-bb0314184)  
+GitHub: [odhiambk](https://github.com/odhiambk)  
+
+## EDUCATION
+- **Master of Science: Data Science**, Expected in 05/2025  
+  Grand Valley State University - Allendale, MI  
+- **Bachelor of Science: Actuarial Science**, 09/2021  
+  University of Nairobi - Nairobi, Kenya  
+  - Ranked in 10% of class with a 2nd Honors Upper Division  
+  - GPA: 3.52  
+
+## PROFESSIONAL SUMMARY
+Dedicated and results-driven Data Science graduate student with a strong foundation in statistical analysis, machine learning, and data visualization. Possessing a solid understanding of programming languages such as Python and R, coupled with hands-on experience in leveraging advanced analytics to derive meaningful insights from complex datasets. Proven ability to design and implement machine learning models for predictive and prescriptive analysis. Adept at utilizing data visualization tools to communicate findings effectively. Seeking opportunities to apply theoretical knowledge and practical skills in a dynamic and challenging professional environment, with a keen interest in contributing to innovative solutions and driving data-driven decision-making processes.
+
+## SKILLS
+- **Programming Languages**: Python (NumPy, Pandas, Scikit-Learn), R  
+- **Data Analysis**: Exploratory Data Analysis (EDA), Data Cleaning, Feature Engineering  
+- **Machine Learning**: Regression, Classification, Clustering, Model Evaluation  
+- **Tools**: Jupyter Notebooks, Git, SQL  
+- **Data Visualization**: Matplotlib, Seaborn  
+- **Statistical Methods**: Hypothesis Testing, Probability Distributions  
+- **Version Control**: Git, GitHub  
+- **Database Management**: SQL, MongoDB  
+
+## EXPERIENCE
+
+### DataAnalyzer Project, 10/2023 - 12/2023
+- Developed a comprehensive data analysis tool in Python, incorporating NumPy, pandas, and Matplotlib libraries.
+- Implemented functionalities for importing data, calculating descriptive statistics, and visualizing data using a user-friendly GUI with tkinter.
+- Ensured robust error handling and modular design for enhanced usability and maintainability.
+- Applied the tool to fetch and analyze real-world datasets, exemplifying practical application in data science tasks.
+- Demonstrated proficiency in logging practices for effective troubleshooting and code maintenance.
+
+### Volunteer Financial Analyst, 09/2021 - 03/2023
+CIC Insurance – Nairobi, Kenya
+- Achieved significant cost savings by identifying financial inefficiencies and implementing improved processes.
+- Streamlined financial reporting for better decision-making with clear, concise analysis and presentation.
+- Reduced risk exposure by conducting comprehensive credit analyses and recommending appropriate actions.
+- Assisted in M&A transactions, conducting valuation analyses to ensure favorable deal terms for the company.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
