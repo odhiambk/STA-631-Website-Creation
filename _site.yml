@@ -4,6 +4,19 @@ description: |
   Karlmarx Odhiambo Portfolio
 output_dir: "docs"
 navbar:
+  left:
+    - text: "Professional Summary"
+      href: "professional_summary.html"
+    - text: "myCV"
+      href: "my_cv.html"
+    - text: "SLR"
+      href: "slr.html"
+    - text: "MLR"
+      href: "mlr.html"
+    - text: "Logistic Regression"
+      href: "logistic_regression"
+    - text: "Project Proposal"
+      href: "project_proposal.html"
   right:
     - text: "Home"
       href: index.html
