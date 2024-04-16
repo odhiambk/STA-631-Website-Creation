@@ -274,9 +274,9 @@ pi_from_odds_black
   How can you use it help you answer (12)?
   Replace "verbatim" with "r" before the code chunk title to produce the logistic model output.
 
-```{r logistic-model}
-tidy(mult_log_mod, exponentiate = TRUE, conf.int = TRUE) %>% 
-  knitr::kable(digits = 3)
+```{r logistic-model2}
+ # tidy(mult_log_mod, exponentiate = TRUE, conf.int = TRUE) %>% 
+   # knitr::kable(digits = 3)
 ```
 
 
@@ -383,25 +383,25 @@ Since Pearson residuals are similar to residuals that we have already explored, 
   
 ```{r residual-plots}
 # To store residuals and create row number variable
-mult_log_aug <- augment(mult_log_mod, type.predict = "response", 
-                      type.residuals = "deviance") %>% 
-                      mutate(id = row_number())
+# mult_log_aug <- augment(mult_log_mod, type.predict = "response", 
+                      # type.residuals = "deviance") %>% 
+                      # mutate(id = row_number())
 
 # Plot residuals vs fitted values
-ggplot(data = mult_log_aug, aes(x = .fitted, y = .resid)) + 
-geom_point() + 
-geom_hline(yintercept = 0, color = "red") + 
-labs(x = "Fitted values", 
-     y = "Deviance residuals", 
-     title = "Deviance residuals vs. fitted")
+# ggplot(data = mult_log_aug, aes(x = .fitted, y = .resid)) + 
+# geom_point() + 
+# geom_hline(yintercept = 0, color = "red") + 
+# labs(x = "Fitted values", 
+     # y = "Deviance residuals", 
+     # title = "Deviance residuals vs. fitted")
      
 # Plot residuals vs row number
-ggplot(data = mult_log_aug, aes(x = id, y = .resid)) + 
-geom_point() + 
-geom_hline(yintercept = 0, color = "red") + 
-labs(x = "id", 
-     y = "Deviance residuals", 
-     title = "Deviance residuals vs. id")
+# ggplot(data = mult_log_aug, aes(x = id, y = .resid)) + 
+# geom_point() + 
+# geom_hline(yintercept = 0, color = "red") + 
+# labs(x = "id", 
+     # y = "Deviance residuals", 
+     # title = "Deviance residuals vs. id")
 ```
 
 Here we produced two residual plots: the deviance residuals against the fitted values and the deviance variables against the index id (an index plot).

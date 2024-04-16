@@ -1,6 +1,5 @@
 ---
 title: "Project Proposal"
-author: "Karlmarx Odhiambo"
 date: "`r Sys.Date()`"
 output:
   word_document: default
@@ -27,14 +26,17 @@ The data has both demographic, behavioral and medical risk factors.
 **Demographic:**
 • Sex: male or female(Nominal)
 • Age: Age of the patient;(Continuous - Although the recorded ages have been truncated to whole numbers, the concept of age is continuous)
+
 **Behavioral:**
 • Current Smoker: whether or not the patient is a current smoker (Nominal)
 • Cigs Per Day: the number of cigarettes that the person smoked on average in one day.(can be considered continuous as one can have any number of cigarettes, even half a cigarette.)
+
 **Medical( history):**
 • BP Meds: whether or not the patient was on blood pressure medication (Nominal)
 • Prevalent Stroke: whether or not the patient had previously had a stroke (Nominal)
 • Prevalent Hyp: whether or not the patient was hypertensive (Nominal)
 • Diabetes: whether or not the patient had diabetes (Nominal)
+
 **Medical(current):**
 • Tot Chol: total cholesterol level (Continuous)
 • Sys BP: systolic blood pressure (Continuous)
@@ -42,6 +44,7 @@ The data has both demographic, behavioral and medical risk factors.
 • BMI: Body Mass Index (Continuous)
 • Heart Rate: heart rate (Continuous - In medical research, variables such as heart rate though in fact discrete, yet are considered continuous because of large number of possible values.)
 • Glucose: glucose level (Continuous)
+
 **Predict variable (desired target):**
 • 10 year risk of coronary heart disease CHD (binary: “1”, means “Yes”, “0” means “No”)
 
@@ -52,6 +55,8 @@ library(tidyverse)
 library(dplyr)
 library(cowplot)
 library(pROC)
+library(caret)
+library(janitor)
 ```
 
 
@@ -61,54 +66,153 @@ Let me import the data to highlight some of the attributes of the data
 framingham <- read.csv("C:/Users/karlm/OneDrive/Documents/STA 631/framingham.csv")
 ```
 
-Below is an overview of how I will handle my project
 
 ## Data Exploration
 
 ```{r}
+head(framingham)
+```
+
+
+```{r}
+cat('Number of Rows:',nrow(framingham),'   ','Number of Fields:',ncol(framingham))
+```
+
+```{r}
 # View the structure of the dataset
 str(framingham)
+```
 
+
+```{r}
 # Summary statistics
 summary(framingham)
+```
 
+
+```{r}
 # Check for missing values
 colSums(is.na(framingham))
+```
 
+
+```{r}
 # Check the class distribution of the target variable
 table(framingham$TenYearCHD)
+
+janitor::tabyl(framingham$TenYearCHD)
 ```
 
-```{r}
-head(df)
-```
+## Data Preprocessing
+
+
+First, remove any duplicate observations
 
 ```{r}
-cat('Number of Rows:',nrow(df),'   ','Number of Fields:',ncol(df))
+framingham <- framingham |> 
+  distinct()
 ```
+
+
+Then, Clean Null Observations
+
+```{r}
+colSums(is.na(framingham))
+```
+
+# Handle missing values
+
+```{r}
+# Remove rows with missing values
+framingham <- na.omit(framingham)
+```
+
+
 
 ### EDA
 
-## Handle missing values
-
-Depending on the extent of missing data, I will impute missing values or remove rows with missing values.
-
-## Convert categorical variables to factors
+# Convert binary variables to characters for better visualization
 
 ```{r}
-framingham$education <- as.factor(framingham$education)
-framingham$BPMeds <- as.factor(framingham$BPMeds)
-# Similarly, convert other categorical variables to factors if needed
+framingham <- framingham |>  
+  mutate(male = as.character(male),
+        currentSmoker = as.character(currentSmoker),
+        prevalentHyp = as.character(prevalentHyp),
+        diabetes = as.character(diabetes),
+        TenYearCHD = as.character(TenYearCHD))
 ```
 
-## Split the data into training and testing sets
+# Visualize the relationship between TenYearCHD and Age/TotCHOL
 
-```{r split data}
-# set.seed(123) # for reproducibility
-# train_index <- createDataPartition(framingham$TenYearCHD, p = 0.7, list = FALSE)
-# train_data <- framingham[train_index, ]
-# test_data <- framingham[-train_index, ]
+```{r}
+x <- ggplot(data = framingham, mapping = aes(x = as.factor(TenYearCHD), y = age, fill = TenYearCHD)) +
+  geom_boxplot()
+y <- ggplot(data = framingham, mapping = aes(x = as.factor(TenYearCHD), y = totChol, color = TenYearCHD)) +
+  geom_boxplot()
+p <- plot_grid(x, y) 
+title <- ggdraw() + draw_label("1. Relationship between TenYearCHD and Age / TotCHOL", fontface='bold')
+plot_grid(title, p, ncol=1, rel_heights=c(0.1, 1))
 ```
+
+# Visualize the relationship between TenYearCHD and sysBP/diaBP
+
+```{r}
+x <- ggplot(data = framingham, mapping = aes(x = as.factor(TenYearCHD), y = sysBP, fill = TenYearCHD)) +
+  geom_boxplot()
+y <- ggplot(data = framingham, mapping = aes(x = as.factor(TenYearCHD), y = diaBP, color = TenYearCHD)) +
+  geom_boxplot()
+p <- plot_grid(x, y) 
+title <- ggdraw() + draw_label("2. Relationship between TenYearCHD and sysBP / diaBP", fontface='bold')
+plot_grid(title, p, ncol=1, rel_heights=c(0.1, 1))
+```
+
+# Visualize the relationship between TenYearCHD and BMI/HeartRate
+
+```{r}
+x <- ggplot(data = framingham, mapping = aes(x = as.factor(TenYearCHD), y = BMI, fill = TenYearCHD)) +
+  geom_boxplot()
+y <- ggplot(data = framingham, mapping = aes(x = as.factor(TenYearCHD), y = heartRate, color = TenYearCHD)) +
+  geom_boxplot()
+p <- plot_grid(x, y) 
+title <- ggdraw() + draw_label("3. Relationship between TenYearCHD and BMI / HeartRate", fontface='bold')
+plot_grid(title, p, ncol=1, rel_heights=c(0.1, 1))
+```
+
+# Visualize the relationship between TenYearCHD and Glucose
+
+```{r}
+x <- ggplot(data = framingham, mapping = aes(x = as.factor(TenYearCHD), y = glucose, fill = TenYearCHD)) +
+  geom_boxplot()
+y <- ggplot(data = framingham, mapping = aes(x = as.factor(TenYearCHD), y = cigsPerDay, fill = TenYearCHD)) +
+  geom_boxplot()
+p <- plot_grid(x,y) 
+title <- ggdraw() + draw_label("4. Relationship between TenYearCHD and Glucose", fontface='bold')
+plot_grid(title, p, ncol=1, rel_heights=c(0.1, 1))
+```
+
+# Visualize the relationship between TenYearCHD and Sex/Diabetes
+
+```{r}
+x <- ggplot(data = framingham) +
+  geom_count(mapping = aes(x = male, y = TenYearCHD))
+y <- ggplot(data = framingham) +
+  geom_count(mapping = aes(x = diabetes, y = TenYearCHD))
+p <- plot_grid(x, y) 
+title <- ggdraw() + draw_label("5. Relationship between TenYearCHD and Sex / Diabetes", fontface='bold')
+plot_grid(title, p, ncol=1, rel_heights=c(0.1, 1))
+```
+
+## Observations
+
+**Plot 1:** People with CHD have higher mean ages and choloesterol levels
+
+**Plot 2:** People with CHD have higher mean systolic and diastolic blood pressures
+
+**Plot 3:** People with CHD have a higher mean BMI, but very similar mean heart rates as people without CHD
+
+**Plot 4:** People with CHD and without CHD have very similar mean glucose levels
+
+**Plot 5:** More males than females have CHD and more non-diabetics have CHD compared to diabetics. This doesn't take into account the population proportions.
 
 
 ### Build and Evaluate the Logistic Regression Model
@@ -116,54 +220,193 @@ framingham$BPMeds <- as.factor(framingham$BPMeds)
 **Build the logistic regression model**
 
 ```{r lrm}
-# model <- glm(TenYearCHD ~ ., data = train_data, family = binomial)
+framingham <- framingham |>  
+  mutate(TenYearCHD = as.integer(TenYearCHD))
 ```
 
+# Split the Data
+
+```{r}
+n_train <- round(0.7 * nrow(framingham))
+train_indices <- sample(1:nrow(framingham), n_train)
+framingham_train <- framingham[train_indices, ]
+framingham_test <- framingham[-train_indices, ]
+```
+
+# Train the Model
+
+```{r}
+dim(framingham_train)
+```
+
+# Test the Model
+
+```{r}
+dim(framingham_test)
+```
+
+```{r}
+log.fit = glm(TenYearCHD ~ ., data=framingham_train, family=binomial)
+round(summary(log.fit)$coefficients, 2)
+```
+
+*From the model, the variables that significantly effect the probability of a patient having CHD are: Sex, Age, Cigs per day, systolic blood pressure, and glucose levels.*
+
+```{r}
+log.probs <- predict(log.fit, type="response")
+```
+
+```{r}
+log.preds = rep("No CHD", 2559)
+```
+
+```{r}
+log.preds[log.probs>0.5] = "CHD"
+```
+
+```{r}
+attach(framingham_train)
+```
+
+```{r}
+table(log.preds,TenYearCHD)
+```
+
+```{r}
+cat("Training Error Rate:", round(((11+361)/2559)*100,2),"%")
+```
+
+*Remove the insignificant variables and retrain the model*
+
+```{r}
+log.fit = glm(TenYearCHD ~ male + age + cigsPerDay + sysBP + glucose, data=framingham_train, family=binomial)
+round(summary(log.fit)$coefficients, 2)
+```
+
+## Observations
+
+```{r}
+cat("Sex: Being a male increases the odds of having heart disease by", round((exp(0.51)-1)*100,0), "%", "\n")
+
+cat("Age: Every additional year in patient age increases the odds of heart disease by", round((exp(0.06)-1)*100,0), "%", "\n")
+
+cat("Cigarrets Per Day: Every additional 5 daily ciggaret increases the odds of heart disease by", round(5*(exp(0.02)-1)*100,0), "%", "\n")
+
+cat("Sys Blood Pressure: Every additional 10 units of Sys Blood Pressure increases the odds of heart disease by", round(10*(exp(0.02)-1)*100,0), "%", "\n")
+
+cat("Glucose: Every additional 10 units of glucose levels increases the odds of heart disease by", round(10*(exp(0.01)-1)*100,0), "%")
+```
+
+```{r}
+log.probs <- predict(log.fit, type="response")
+```
+
+
+```{r}
+log.preds = rep("No CHD", 2559)
+```
+
+
+```{r}
+log.preds[log.probs>0.5] = "CHD"
+```
+
+
+```{r}
+table(log.preds,TenYearCHD)
+```
+
+
+```{r}
+cat("Training Error Rate:", round(((17+362)/2559)*100,2),"%")
+```
+
+
+```{r}
+roc(framingham_train$TenYearCHD, log.fit$fitted.values, plot=TRUE)
+```
+
+
+## Test the Model
+
+```{r}
+log.fit = glm(TenYearCHD ~ male + age + cigsPerDay + sysBP + glucose, data=framingham_test, family=binomial)
+```
+
+
+```{r}
+roc(framingham_test$TenYearCHD, log.fit$fitted.values, plot=TRUE)
+```
+
+## Logistic regression equation
+
+P=eβ0+β1X1/1+eβ0+β1X1P=eβ0+β1X1/1+eβ0+β1X1
+
+
+When all variables are included:
+
+logit(p)=log(p/(1−p))=β0+β1∗Sexmale+β2∗age+β3∗cigsPerDay+β4∗totChol+β5∗sysBP+β6∗glucoselogit(p)=log(p/(1−p))=β0+β1∗Sexmale+β2∗age+β3∗cigsPerDay+β4∗totChol+β5∗sysBP+β6∗glucose
+
+**Interpreting the results: Odds Ratio, Confidence Intervals and P-values**
+
+• This fitted model shows that, holding all other features constant, the odds of getting diagnosed with heart disease for males (sex_male = 1)over that of females (sex_male = 0) is exp(0.5815) = 1.788687. In terms of percent change, we can say that the odds for males are 78.8% higher than the odds for females.
+
+• The coefficient for age says that, holding all others constant, we will see 7% increase in the odds of getting diagnosed with CDH for a one year increase in age since exp(0.0655) = 1.067644.
+
+• Similarly , with every extra cigarette one smokes thers is a 2% increase in the odds of CDH.
+
+• For Total cholesterol level and glucose level there is no significant change.
+
+• There is a 1.7% increase in odds for every unit increase in systolic Blood Pressure.
+
+**Model Evaluation - Statistics**
+
+From the above statistics it is clear that the model is highly specific than sensitive. The negative values are predicted more accurately than the positives.
+
+Predicted probabilities of 0 (No Coronary Heart Disease) and 1 ( Coronary Heart Disease: Yes) for the test data with a default classification threshold of 0.5
+
+Lower the threshold
+
+Since the model is predicting Heart disease too many type II errors is not advisable. A False Negative ( ignoring the probability of disease when there actually is one) is more dangerous than a False Positive in this case. Hence in order to increase the sensitivity, threshold can be lowered.
+
+## Conclusions
+
+• All attributes selected after the elimination process show P-values lower than 5% and thereby suggesting significant role in the Heart disease prediction.
+
+• Men seem to be more susceptible to heart disease than women. Increase in age, number of cigarettes smoked per day and systolic Blood Pressure also show increasing odds of having heart disease
+
+• Total cholesterol shows no significant change in the odds of CHD. This could be due to the presence of 'good cholesterol(HDL) in the total cholesterol reading. Glucose too causes a very negligible change in odds (0.2%)
+
+• The model predicted with 0.88 accuracy. The model is more specific than sensitive. Overall model could be improved with more data
 
 **Summary of the model**
 
 ```{r}
-# summary(model)
+summary(framingham)
 ```
-
-
-**Make predictions on the test data**
-
-```{r}
-# predictions <- predict(model, newdata = test_data, type = "response")
-```
-
-
-**Convert predicted probabilities to binary predictions**
-
-```{r}
-# predicted_classes <- ifelse(predictions > 0.5, 1, 0)
-```
-
-
-**Confusion matrix**
-
-```{r}
-# confusionMatrix(table(predicted_classes, test_data$TenYearCHD))
-```
-
 
 ## Interpretation and Further Analysis
 
-*Further steps*
-Interpret the coefficients of the model to understand the impact of each predictor on the probability of TenYearCHD.
+**The training AUC value of 0.73 and the test AUC of 0.74 suggest that the logistic regression model does a fair job of predicting whether a patient has CHD. The significant variables are the sex of the patient, age, cigaretts per day, systolic blood pressure, and glucose levels. The effects of these variables are as follows:**
 
-Evaluate the model's performance using metrics like ROC curve, AUC, etc using the pROC library.
+**Sex:**
+The sex of the patient has the biggest effect. Being a male increases the odds of having heart disease by 67 % compared to being a female. This corresponds with the graph that shows a larger amount of people with heart disease are male.
 
-Consider additional analyses:
+**Age:**
+Every additional year in patient age increases the odds of heart disease by 6 %. This corresponds with the boxplots that show people with heart disease have much higher mean ages.
 
-Feature selection or variable importance analysis to identify the most important predictors.
+**Cigarettes Per Day:**
+Every additional 5 daily cigarette increases the odds of heart disease by 10 %.
 
-Assess model assumptions such as linearity and independence of errors.
+**Systolic Blood Pressure:**
+Every additional 10 units of Systolic Blood Pressure increases the odds of heart disease by 20 %. This corresponds with the boxplots that show people with heart disease have much higher mean systolic blood pressure.
 
-Communicate results:
+**Glucose:**
+Every additional 10 units of glucose levels increases the odds of heart disease by 10 %.
 
-Present findings in a clear and understandable manner
+
+
+
 
 
 

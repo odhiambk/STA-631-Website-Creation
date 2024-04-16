@@ -1,6 +1,5 @@
 ---
 title: "Professional Summary"
-author: "Karlmarx Odhiambo"
 date: "`r Sys.Date()`"
 output: distill::distill_article
 ---

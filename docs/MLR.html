@@ -1,0 +1,3003 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Karlmarx Odhiambo Portfolio: Multiple Linear Regression</title>
+
+
+
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Karlmarx Odhiambo Portfolio: Multiple Linear Regression"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:site_name" content="Karlmarx Odhiambo Portfolio"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Karlmarx Odhiambo Portfolio: Multiple Linear Regression"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["Multiple Linear Regression"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  <!--radix_placeholder_navigation_in_header-->
+  <meta name="distill:offset" content=""/>
+
+  <script type="application/javascript">
+
+    window.headroom_prevent_pin = false;
+
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+
+      // initialize headroom for banner
+      var header = $('header').get(0);
+      var headerHeight = header.offsetHeight;
+      var headroom = new Headroom(header, {
+        tolerance: 5,
+        onPin : function() {
+          if (window.headroom_prevent_pin) {
+            window.headroom_prevent_pin = false;
+            headroom.unpin();
+          }
+        }
+      });
+      headroom.init();
+      if(window.location.hash)
+        headroom.unpin();
+      $(header).addClass('headroom--transition');
+
+      // offset scroll location for banner on hash change
+      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+      window.addEventListener("hashchange", function(event) {
+        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+      });
+
+      // responsive menu
+      $('.distill-site-header').each(function(i, val) {
+        var topnav = $(this);
+        var toggle = topnav.find('.nav-toggle');
+        toggle.on('click', function() {
+          topnav.toggleClass('responsive');
+        });
+      });
+
+      // nav dropdowns
+      $('.nav-dropbtn').click(function(e) {
+        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+        $(this).parent().siblings('.nav-dropdown')
+           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $("body").click(function(e){
+        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $(".nav-dropdown").click(function(e){
+        e.stopPropagation();
+      });
+    });
+  </script>
+
+  <style type="text/css">
+
+  /* Theme (user-documented overrideables for nav appearance) */
+
+  .distill-site-nav {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #0F2E3D;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .distill-site-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .distill-site-nav a:hover {
+    color: white;
+  }
+
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+
+  .distill-site-header {
+
+  }
+
+  .distill-site-footer {
+
+  }
+
+
+  /* Site Header */
+
+  .distill-site-header {
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 3;
+  }
+
+  .distill-site-header .nav-left {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header .nav-left {
+      margin-left: 0;
+    }
+  }
+
+
+  .distill-site-header .nav-right {
+    float: right;
+    margin-right: 8px;
+  }
+
+  .distill-site-header a,
+  .distill-site-header .title {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 10px 14px 10px;
+  }
+
+  .distill-site-header .title {
+    font-size: 18px;
+    min-width: 150px;
+  }
+
+  .distill-site-header .logo {
+    padding: 0;
+  }
+
+  .distill-site-header .logo img {
+    display: none;
+    max-height: 20px;
+    width: auto;
+    margin-bottom: -4px;
+  }
+
+  .distill-site-header .nav-image img {
+    max-height: 18px;
+    width: auto;
+    display: inline-block;
+    margin-bottom: -3px;
+  }
+
+
+
+  @media screen and (min-width: 1000px) {
+    .distill-site-header .logo img {
+      display: inline-block;
+    }
+    .distill-site-header .nav-left {
+      margin-left: 20px;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 20px;
+    }
+    .distill-site-header .title {
+      padding-left: 12px;
+    }
+  }
+
+
+  .distill-site-header .nav-toggle {
+    display: none;
+  }
+
+  .nav-dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 16px 10px;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    margin-top: 1px;
+    z-index: 2;
+  }
+
+  .nav-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    margin-top: 2px;
+    white-space: nowrap;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .nav-dropdown-content hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-dropdown-active {
+    display: block;
+  }
+
+  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+    color: black;
+    padding: 6px 24px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .nav-dropdown-content .nav-dropdown-header {
+    display: block;
+    padding: 5px 24px;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #999999;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown:hover .nav-dropbtn {
+    color: white;
+  }
+
+  .nav-dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav-right .nav-dropdown-content {
+    margin-left: -45%;
+    right: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+    .distill-site-header a.nav-toggle {
+      float: right;
+      display: block;
+    }
+    .distill-site-header .title {
+      margin-left: 0;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 0;
+    }
+    .distill-site-header {
+      overflow: hidden;
+    }
+    .nav-right .nav-dropdown-content {
+      margin-left: 0;
+    }
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header.responsive {position: relative; min-height: 500px; }
+    .distill-site-header.responsive a.nav-toggle {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .distill-site-header.responsive a,
+    .distill-site-header.responsive .nav-dropdown {
+      display: block;
+      text-align: left;
+    }
+    .distill-site-header.responsive .nav-left,
+    .distill-site-header.responsive .nav-right {
+      width: 100%;
+    }
+    .distill-site-header.responsive .nav-dropdown {float: none;}
+    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  /* Site Footer */
+
+  .distill-site-footer {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 3;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  /* Headroom */
+
+  d-title {
+    padding-top: 6rem;
+  }
+
+  @media print {
+    d-title {
+      padding-top: 4rem;
+    }
+  }
+
+  .headroom {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .headroom--transition {
+    transition: all .4s ease-in-out;
+  }
+
+  .headroom--unpinned {
+    top: -100px;
+  }
+
+  .headroom--pinned {
+    top: 0;
+  }
+
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
+  </style>
+
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+  <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+  <script type="application/javascript">
+
+  function getMeta(metaName) {
+    var metas = document.getElementsByTagName('meta');
+    for (let i = 0; i < metas.length; i++) {
+      if (metas[i].getAttribute('name') === metaName) {
+        return metas[i].getAttribute('content');
+      }
+    }
+    return '';
+  }
+
+  function offsetURL(url) {
+    var offset = getMeta('distill:offset');
+    return offset ? offset + '/' + url : url;
+  }
+
+  function createFuseIndex() {
+
+    // create fuse index
+    var options = {
+      keys: [
+        { name: 'title', weight: 20 },
+        { name: 'categories', weight: 15 },
+        { name: 'description', weight: 10 },
+        { name: 'contents', weight: 5 },
+      ],
+      ignoreLocation: true,
+      threshold: 0
+    };
+    var fuse = new window.Fuse([], options);
+
+    // fetch the main search.json
+    return fetch(offsetURL('search.json'))
+      .then(function(response) {
+        if (response.status == 200) {
+          return response.json().then(function(json) {
+            // index main articles
+            json.articles.forEach(function(article) {
+              fuse.add(article);
+            });
+            // download collections and index their articles
+            return Promise.all(json.collections.map(function(collection) {
+              return fetch(offsetURL(collection)).then(function(response) {
+                if (response.status === 200) {
+                  return response.json().then(function(articles) {
+                    articles.forEach(function(article) {
+                      fuse.add(article);
+                    });
+                  })
+                } else {
+                  return Promise.reject(
+                    new Error('Unexpected status from search index request: ' +
+                              response.status)
+                  );
+                }
+              });
+            })).then(function() {
+              return fuse;
+            });
+          });
+
+        } else {
+          return Promise.reject(
+            new Error('Unexpected status from search index request: ' +
+                        response.status)
+          );
+        }
+      });
+  }
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // get search element (bail if we don't have one)
+    var searchEl = window.document.getElementById('distill-search');
+    if (!searchEl)
+      return;
+
+    createFuseIndex()
+      .then(function(fuse) {
+
+        // make search box visible
+        searchEl.classList.remove('hidden');
+
+        // initialize autocomplete
+        var options = {
+          autoselect: true,
+          hint: false,
+          minLength: 2,
+        };
+        window.autocomplete(searchEl, options, [{
+          source: function(query, callback) {
+            const searchOptions = {
+              isCaseSensitive: false,
+              shouldSort: true,
+              minMatchCharLength: 2,
+              limit: 10,
+            };
+            var results = fuse.search(query, searchOptions);
+            callback(results
+              .map(function(result) { return result.item; })
+            );
+          },
+          templates: {
+            suggestion: function(suggestion) {
+              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+                : '';
+              var html = `
+                <div class="search-item">
+                  <h3>${suggestion.title}</h3>
+                  <div class="search-item-description">
+                    ${suggestion.description || ''}
+                  </div>
+                  <div class="search-item-preview">
+                    ${img}
+                  </div>
+                </div>
+              `;
+              return html;
+            }
+          }
+        }]).on('autocomplete:selected', function(event, suggestion) {
+          window.location.href = offsetURL(suggestion.path);
+        });
+        // remove inline display style on autocompleter (we want to
+        // manage responsive display via css)
+        $('.algolia-autocomplete').css("display", "");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+  });
+
+  </script>
+
+  <style type="text/css">
+
+  .nav-search {
+    font-size: x-small;
+  }
+
+  /* Algolioa Autocomplete */
+
+  .algolia-autocomplete {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: sub;
+    background-color: white;
+    color: black;
+    padding: 6px;
+    padding-top: 8px;
+    padding-bottom: 0;
+    border-radius: 6px;
+    border: 1px #0F2E3D solid;
+    width: 180px;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-nav .algolia-autocomplete {
+      display: none;
+      visibility: hidden;
+    }
+    .distill-site-nav.responsive .algolia-autocomplete {
+      display: inline-block;
+      visibility: visible;
+    }
+    .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+      margin-left: 0;
+      width: 400px;
+      max-height: 400px;
+    }
+  }
+
+  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+    width: 90%;
+    outline: none;
+    border: none;
+  }
+
+  .algolia-autocomplete .aa-hint {
+    color: #999;
+  }
+  .algolia-autocomplete .aa-dropdown-menu {
+    width: 550px;
+    max-height: 70vh;
+    overflow-x: visible;
+    overflow-y: scroll;
+    padding: 5px;
+    margin-top: 3px;
+    margin-left: -150px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #999;
+    border-top: none;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+    cursor: pointer;
+    padding: 5px 4px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+    border-bottom: none;
+    margin-bottom: 2px;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+    overflow: hidden;
+    font-size: 0.8em;
+    line-height: 1.4em;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+    font-size: 1rem;
+    margin-block-start: 0;
+    margin-block-end: 5px;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+    display: inline-block;
+    overflow: hidden;
+    height: 2.8em;
+    width: 80%;
+    margin-right: 4%;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+    display: inline-block;
+    width: 15%;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+    height: 3em;
+    width: auto;
+    display: none;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+    display: initial;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+    background-color: #eee;
+  }
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  </style>
+
+
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+    font-size: 100%;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+    border-top: none;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Multiple Linear Regression","authors":[]}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="index.html" class="title">Karlmarx Odhiambo Portfolio</a>
+<a href="professional_summary.html">Professional Summary</a>
+<a href="my_cv.html">myCV</a>
+<a href="slr.html">SLR</a>
+<a href="mlr.html">MLR</a>
+<a href="logistic_regression">Logistic Regression</a>
+<a href="project_proposal.html">Project Proposal</a>
+</div>
+<div class="nav-right">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Multiple Linear Regression</h1>
+
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+
+</div>
+
+
+<div class="d-article">
+<p>In the last activity, you might have noticed that I made this Rmd output a document with a type of <code>github_document</code> (in the YAML header underneath the title - on line 3) instead of a HTML, Word, or PDF document.
+This produces a GitHub friendly Markdown file that GitHub then renders to HTML.
+You can read more about this output type in RMarkdown’s <a href="https://rmarkdown.rstudio.com/github_document_format.html">documentation page</a> if you want to learn more.</p>
+<h1 id="day-1">Day 1</h1>
+<h2 id="load-the-necessary-packages">Load the necessary packages</h2>
+<p>I encourage you to continue using the two packages from Posit (formerly <a href="https://posit.co/">RStudio</a>): <code>{tidyverse}</code> and <code>{tidymodels}</code>.
+Remember that <a href="https://www.emilhvitfeldt.com/">Emil Hvitfeldt</a> (of Posit) has put together a <a href="https://emilhvitfeldt.github.io/ISLR-tidymodels-labs/index.html">complementary online text</a> for the labs in the <em>ISLR</em> text that utilize <code>{tidyverse}</code> and <code>{tidymodels}</code> instead of base R.</p>
+<ul>
+<li><p>In the <strong>Packages</strong> pane of RStudio, check if <code>{tidyverse}</code> and <code>{tidymodels}</code> are installed.
+Be sure to check both your <strong>User Library</strong> and <strong>System Library</strong>.</p></li>
+<li><p>If either of these are not currently listed (they should be because you verified this in Activity 1), type the following in your <strong>Console</strong> pane, replacing <code>package_name</code> with the appropriate name, and press Enter/Return afterwards.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"package_name"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div></li>
+<li><p>Once you have verified that both <code>{tidyverse}</code> and <code>{tidymodels}</code> are installed (in either your user or system library), load these packages in the R chunk below titled <code>load-packages</code>.</p></li>
+<li><p>Run the <code>load-packages</code> code chunk or <strong>knit</strong> <img src="../README-img/knit-icon.png" alt="knit" width = "20"/> icon your Rmd document to verify that no errors occur.</p></li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidymodels.tidymodels.org'>tidymodels</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggobi.github.io/ggally/'>GGally</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>Since we will be looking at many relationships graphically, it will be nice to not have to code each of these individually.
+<code>{GGally}</code> is an extension to <code>{ggplot2}</code> that reduces some of the complexities when combining multiple plots.
+For example, <a href="http://ggobi.github.io/ggally/articles/ggpairs.html"><code>GGally::ggpairs</code></a> is very handy for pairwise comparisons of multiple variables.</p>
+<ul>
+<li><p>In the <strong>Packages</strong> pane of RStudio, check if <code>{GGally}</code> is already installed.
+Be sure to check both your <strong>User Library</strong> and <strong>System Library</strong>.</p></li>
+<li><p>If this is not currently listed, type the following in your <strong>Console</strong> pane and press Enter/Return afterwards.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"GGally"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div></li>
+<li><p>Once you have verified that <code>{GGally}</code> is installed, load it in the R chunk titled <code>load-packages</code>.</p></li>
+<li><p>Run the <code>setup</code> code chunk or <strong>knit</strong> <img src="../README-img/knit-icon.png" alt="knit" width = "20"/> icon your Rmd document to verify that no errors occur.</p></li>
+</ul>
+<h2 id="load-the-data-and">Load the data and</h2>
+<p>I found a way to upload data from OpenIntro without needing to download it first!
+Recall that data we are working with is from the OpenIntro site (its “about” page: <a href="https://www.openintro.org/data/index.php?data=hfi" class="uri">https://www.openintro.org/data/index.php?data=hfi</a>).
+We can access the raw data from their tab-delimited text file link: <a href="https://www.openintro.org/data/tab-delimited/hfi.txt" class="uri">https://www.openintro.org/data/tab-delimited/hfi.txt</a>.</p>
+<p>Create a new R code chunk below that is titled <code>load-data</code> and reads in the above linked TSV (tab-separated values) file by doing the following:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>hfi_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"https://www.openintro.org/data/tab-delimited/hfi.txt"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<ul>
+<li>Rather than downloading this file, uploading to RStudio, then reading it in, explore how to load this file directly from the provided URL with <code>readr::read_tsv</code> (<code>{readr}</code> is part of <code>{tidyverse}</code>).</li>
+<li>Assign this data set into a data frame named <code>hfi</code> (short for “Human Freedom Index”).</li>
+<li>Filter the data <code>hfi</code> data frame for year 2016 and assigns the result to an R data object named <code>hfi_2016</code>. You will use <code>hfi_2016</code> for the remainder of this activity.</li>
+</ul>
+<p>We will continue using personal freedom scores, <code>pf_score</code>, as the response variable and build on our model that had <code>pf_expression_control</code> as the explanatory variable.</p>
+<p>Create a new R code chunk below, with an appropriate title, that does the following:</p>
+<ul>
+<li>Review the about page of the data set and select at least one additional numeric variables (hint: look for <code>&lt;dbl&gt;</code> or <code>&lt;int&gt;</code> designations) to describe its distribution. Remember to write your description.</li>
+<li>You may also wish to do this for <code>pf_score</code> and <code>pf_expression_control</code> again to help you remember what you noticed last week.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Load the data</span></span>
+<span><span class='va'>hfi_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_tsv</a></span><span class='op'>(</span><span class='st'>"https://www.openintro.org/data/tab-delimited/hfi.txt"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Filter the data for year 2016</span></span>
+<span><span class='va'>hfi_2016</span> <span class='op'>&lt;-</span> <span class='va'>hfi_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2016</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Explore the distribution of pf_score</span></span>
+<span><span class='fu'>skimr</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/skimr/reference/skim.html'>skim</a></span><span class='op'>(</span><span class='va'>hfi_2016</span><span class='op'>$</span><span class='va'>pf_score</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<caption><span id="tab:unnamed-chunk-3">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">hfi_2016$pf_score</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">162</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">data</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6.98</td>
+<td style="text-align: right;">1.49</td>
+<td style="text-align: right;">2.17</td>
+<td style="text-align: right;">6.03</td>
+<td style="text-align: right;">6.93</td>
+<td style="text-align: right;">8.14</td>
+<td style="text-align: right;">9.4</td>
+<td style="text-align: left;">▁▁▇▇▆</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Explore the distribution of the selected variable</span></span>
+<span><span class='fu'>skimr</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/skimr/reference/skim.html'>skim</a></span><span class='op'>(</span><span class='va'>hfi_2016</span><span class='op'>$</span><span class='va'>hfi_data</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: skim_type &lt;chr&gt;, skimmed &lt;???&gt;</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Filter the data for year 2016</span></span>
+<span><span class='va'>hfi_2016</span> <span class='op'>&lt;-</span> <span class='va'>hfi_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2016</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Explore the distribution of pf_score</span></span>
+<span><span class='fu'>skimr</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/skimr/reference/skim.html'>skim</a></span><span class='op'>(</span><span class='va'>hfi_2016</span><span class='op'>$</span><span class='va'>pf_score</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 2: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">hfi_2016$pf_score</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">162</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">data</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6.98</td>
+<td style="text-align: right;">1.49</td>
+<td style="text-align: right;">2.17</td>
+<td style="text-align: right;">6.03</td>
+<td style="text-align: right;">6.93</td>
+<td style="text-align: right;">8.14</td>
+<td style="text-align: right;">9.4</td>
+<td style="text-align: left;">▁▁▇▇▆</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Explore the distribution of the selected variable</span></span>
+<span><span class='fu'>skimr</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/skimr/reference/skim.html'>skim</a></span><span class='op'>(</span><span class='va'>hfi_2016</span><span class='op'>$</span><span class='va'>selected_variable</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: skim_type &lt;chr&gt;, skimmed &lt;???&gt;</code></pre>
+</div>
+<h2 id="pairwise-relationships">Pairwise relationships</h2>
+<p>In Activity 2 you explored simple linear regression models.
+Specifically, you fit and assessed this relationship:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 \times x + \varepsilon
+\]</span></p>
+<p><img src="../README-img/noun-magnifying-glass.png" alt="check-in" /> <strong>Check in</strong></p>
+<p>Review how you described this model in Activity 2.
+- What were your parameter estimates (i.e., the <span class="math inline">\(\beta\)</span>s)?
+How did you interpret these and what did they imply for this scenario?
+- How good of a fit was this model?
+What did you use to assess this?</p>
+<p>For this activity, we will begin using the two other quantitative variables to describe the patterns in the response variable.
+Take a moment to think about what this previous sentence means:</p>
+<ul>
+<li>What does this mean from a statistical point of view?</li>
+<li>What does this mean from a “real world” point of view (i.e., for your data’s situation)?</li>
+</ul>
+<p>Now, we will obtain graphical and numerical summaries to describe the pairwise relationships.</p>
+<ul>
+<li>In the code chunk below titled <code>pairs-plot</code>, replace “verbatim” with “r” just before the code chunk title.</li>
+<li>Replace <code>explanatory</code> in the <code>select</code> line with the variable you identified above</li>
+<li>Run your code chunk or knit your document.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>hfi_data</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>spc_tbl_ [1,458 × 123] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ year                              : num [1:1458] 2016 2016 2016 2016 2016 ...
+ $ ISO_code                          : chr [1:1458] &quot;ALB&quot; &quot;DZA&quot; &quot;AGO&quot; &quot;ARG&quot; ...
+ $ countries                         : chr [1:1458] &quot;Albania&quot; &quot;Algeria&quot; &quot;Angola&quot; &quot;Argentina&quot; ...
+ $ region                            : chr [1:1458] &quot;Eastern Europe&quot; &quot;Middle East &amp; North Africa&quot; &quot;Sub-Saharan Africa&quot; &quot;Latin America &amp; the Caribbean&quot; ...
+ $ pf_rol_procedural                 : num [1:1458] 6.66 NA NA 7.1 NA ...
+ $ pf_rol_civil                      : num [1:1458] 4.55 NA NA 5.79 NA ...
+ $ pf_rol_criminal                   : num [1:1458] 4.67 NA NA 4.34 NA ...
+ $ pf_rol                            : num [1:1458] 5.29 3.82 3.45 5.74 5 ...
+ $ pf_ss_homicide                    : num [1:1458] 8.92 9.46 8.06 7.62 8.81 ...
+ $ pf_ss_disappearances_disap        : num [1:1458] 10 10 5 10 10 10 10 10 10 10 ...
+ $ pf_ss_disappearances_violent      : num [1:1458] 10 9.29 10 10 10 ...
+ $ pf_ss_disappearances_organized    : num [1:1458] 10 5 7.5 7.5 7.5 10 10 7.5 NA 2.5 ...
+ $ pf_ss_disappearances_fatalities   : num [1:1458] 10 9.93 10 10 9.32 ...
+ $ pf_ss_disappearances_injuries     : num [1:1458] 10 9.99 10 9.99 9.93 ...
+ $ pf_ss_disappearances              : num [1:1458] 10 8.84 8.5 9.5 9.35 ...
+ $ pf_ss_women_fgm                   : num [1:1458] 10 10 10 10 10 10 10 10 NA 10 ...
+ $ pf_ss_women_missing               : num [1:1458] 7.5 7.5 10 10 5 10 10 7.5 NA 7.5 ...
+ $ pf_ss_women_inheritance_widows    : num [1:1458] 5 0 5 10 10 10 10 5 NA 0 ...
+ $ pf_ss_women_inheritance_daughters : num [1:1458] 5 0 5 10 10 10 10 10 NA 0 ...
+ $ pf_ss_women_inheritance           : num [1:1458] 5 0 5 10 10 10 10 7.5 NA 0 ...
+ $ pf_ss_women                       : num [1:1458] 7.5 5.83 8.33 10 8.33 ...
+ $ pf_ss                             : num [1:1458] 8.81 8.04 8.3 9.04 8.83 ...
+ $ pf_movement_domestic              : num [1:1458] 5 5 0 10 5 10 10 5 10 10 ...
+ $ pf_movement_foreign               : num [1:1458] 10 5 5 10 5 10 10 5 10 5 ...
+ $ pf_movement_women                 : num [1:1458] 5 5 10 10 10 10 10 5 NA 5 ...
+ $ pf_movement                       : num [1:1458] 6.67 5 5 10 6.67 ...
+ $ pf_religion_estop_establish       : num [1:1458] NA NA NA NA NA NA NA NA NA NA ...
+ $ pf_religion_estop_operate         : num [1:1458] NA NA NA NA NA NA NA NA NA NA ...
+ $ pf_religion_estop                 : num [1:1458] 10 5 10 7.5 5 10 10 2.5 NA 10 ...
+ $ pf_religion_harassment            : num [1:1458] 9.57 6.87 8.9 9.04 8.58 ...
+ $ pf_religion_restrictions          : num [1:1458] 8.01 2.96 7.46 6.85 5.09 ...
+ $ pf_religion                       : num [1:1458] 9.19 4.94 8.79 7.8 6.22 ...
+ $ pf_association_association        : num [1:1458] 10 5 2.5 7.5 7.5 10 10 2.5 NA 5 ...
+ $ pf_association_assembly           : num [1:1458] 10 5 2.5 10 7.5 10 10 5 NA 0 ...
+ $ pf_association_political_establish: num [1:1458] NA NA NA NA NA NA NA NA NA NA ...
+ $ pf_association_political_operate  : num [1:1458] NA NA NA NA NA NA NA NA NA NA ...
+ $ pf_association_political          : num [1:1458] 10 5 2.5 5 5 10 10 2.5 NA 0 ...
+ $ pf_association_prof_establish     : num [1:1458] NA NA NA NA NA NA NA NA NA NA ...
+ $ pf_association_prof_operate       : num [1:1458] NA NA NA NA NA NA NA NA NA NA ...
+ $ pf_association_prof               : num [1:1458] 10 5 5 7.5 5 10 10 2.5 NA 10 ...
+ $ pf_association_sport_establish    : num [1:1458] NA NA NA NA NA NA NA NA NA NA ...
+ $ pf_association_sport_operate      : num [1:1458] NA NA NA NA NA NA NA NA NA NA ...
+ $ pf_association_sport              : num [1:1458] 10 5 7.5 7.5 7.5 10 10 2.5 NA 10 ...
+ $ pf_association                    : num [1:1458] 10 5 4 7.5 6.5 10 10 3 NA 5 ...
+ $ pf_expression_killed              : num [1:1458] 10 10 10 10 10 10 10 10 10 10 ...
+ $ pf_expression_jailed              : num [1:1458] 10 10 10 10 10 ...
+ $ pf_expression_influence           : num [1:1458] 5 2.67 2.67 5.67 3.33 ...
+ $ pf_expression_control             : num [1:1458] 5.25 4 2.5 5.5 4.25 7.75 8 0.25 7.25 0.75 ...
+ $ pf_expression_cable               : num [1:1458] 10 10 7.5 10 7.5 10 10 10 NA 7.5 ...
+ $ pf_expression_newspapers          : num [1:1458] 10 7.5 5 10 7.5 10 10 0 NA 7.5 ...
+ $ pf_expression_internet            : num [1:1458] 10 7.5 7.5 10 7.5 10 10 7.5 NA 2.5 ...
+ $ pf_expression                     : num [1:1458] 8.61 7.38 6.45 8.74 7.15 ...
+ $ pf_identity_legal                 : num [1:1458] 0 NA 10 10 7 7 10 0 NA NA ...
+ $ pf_identity_parental_marriage     : num [1:1458] 10 0 10 10 10 10 10 10 10 0 ...
+ $ pf_identity_parental_divorce      : num [1:1458] 10 5 10 10 10 10 10 10 10 0 ...
+ $ pf_identity_parental              : num [1:1458] 10 2.5 10 10 10 10 10 10 10 0 ...
+ $ pf_identity_sex_male              : num [1:1458] 10 0 0 10 10 10 10 10 10 10 ...
+ $ pf_identity_sex_female            : num [1:1458] 10 0 0 10 10 10 10 10 10 10 ...
+ $ pf_identity_sex                   : num [1:1458] 10 0 0 10 10 10 10 10 10 10 ...
+ $ pf_identity_divorce               : num [1:1458] 5 0 10 10 5 10 10 5 NA 0 ...
+ $ pf_identity                       : num [1:1458] 6.25 0.833 7.5 10 8 ...
+ $ pf_score                          : num [1:1458] 7.6 5.28 6.11 8.1 6.91 ...
+ $ pf_rank                           : num [1:1458] 57 147 117 42 84 11 8 131 64 114 ...
+ $ ef_government_consumption         : num [1:1458] 8.23 2.15 7.6 5.34 7.26 ...
+ $ ef_government_transfers           : num [1:1458] 7.51 7.82 8.89 6.05 7.75 ...
+ $ ef_government_enterprises         : num [1:1458] 8 0 0 6 8 10 10 0 7 10 ...
+ $ ef_government_tax_income          : num [1:1458] 9 7 10 7 5 5 4 9 10 10 ...
+ $ ef_government_tax_payroll         : num [1:1458] 7 2 9 1 5 5 3 4 10 10 ...
+ $ ef_government_tax                 : num [1:1458] 8 4.5 9.5 4 5 5 3.5 6.5 10 10 ...
+ $ ef_government                     : num [1:1458] 7.94 3.62 6.5 5.35 7 ...
+ $ ef_legal_judicial                 : num [1:1458] 2.67 4.19 1.84 3.69 3.87 ...
+ $ ef_legal_courts                   : num [1:1458] 3.15 4.33 1.97 2.93 4.2 ...
+ $ ef_legal_protection               : num [1:1458] 4.51 4.69 2.51 4.26 5.66 ...
+ $ ef_legal_military                 : num [1:1458] 8.33 4.17 3.33 7.5 5.83 ...
+ $ ef_legal_integrity                : num [1:1458] 4.17 5 4.17 3.33 5 ...
+ $ ef_legal_enforcement              : num [1:1458] 4.39 4.51 2.3 3.63 5.2 ...
+ $ ef_legal_restrictions             : num [1:1458] 6.49 6.63 5.46 6.86 9.8 ...
+ $ ef_legal_police                   : num [1:1458] 6.93 6.14 3.02 3.39 5.71 ...
+ $ ef_legal_crime                    : num [1:1458] 6.22 6.74 4.29 4.13 7.01 ...
+ $ ef_legal_gender                   : num [1:1458] 0.949 0.821 0.846 0.769 1 ...
+ $ ef_legal                          : num [1:1458] 5.07 4.69 2.96 3.9 5.81 ...
+ $ ef_money_growth                   : num [1:1458] 8.99 6.96 9.39 5.23 9.08 ...
+ $ ef_money_sd                       : num [1:1458] 9.48 8.34 4.99 5.22 9.26 ...
+ $ ef_money_inflation                : num [1:1458] 9.74 8.72 3.05 2 9.75 ...
+ $ ef_money_currency                 : num [1:1458] 10 5 5 10 10 10 10 5 0 10 ...
+ $ ef_money                          : num [1:1458] 9.55 7.25 5.61 5.61 9.52 ...
+ $ ef_trade_tariffs_revenue          : num [1:1458] 9.63 8.48 8.99 6.06 8.87 ...
+ $ ef_trade_tariffs_mean             : num [1:1458] 9.24 6.22 7.72 7.26 8.76 9.5 8.96 8.2 3.36 9.06 ...
+ $ ef_trade_tariffs_sd               : num [1:1458] 8.02 5.92 4.25 5.94 8.02 ...
+ $ ef_trade_tariffs                  : num [1:1458] 8.96 6.87 6.99 6.42 8.55 ...
+ $ ef_trade_regulatory_nontariff     : num [1:1458] 5.57 4.96 3.13 4.47 5.92 ...
+ $ ef_trade_regulatory_compliance    : num [1:1458] 9.405 0 0.917 5.156 8.466 ...
+ $ ef_trade_regulatory               : num [1:1458] 7.49 2.48 2.02 4.81 7.19 ...
+ $ ef_trade_black                    : num [1:1458] 10 5.56 10 0 10 ...
+ $ ef_trade_movement_foreign         : num [1:1458] 6.31 3.66 2.95 5.36 5.11 ...
+ $ ef_trade_movement_capital         : num [1:1458] 4.615 0 3.077 0.769 5.385 ...
+ $ ef_trade_movement_visit           : num [1:1458] 8.297 1.106 0.111 7.965 10 ...
+ $ ef_trade_movement                 : num [1:1458] 6.41 1.59 2.04 4.7 6.83 ...
+ $ ef_trade                          : num [1:1458] 8.21 4.13 5.26 3.98 8.14 ...
+  [list output truncated]
+ - attr(*, &quot;spec&quot;)=
+  .. cols(
+  ..   year = col_double(),
+  ..   ISO_code = col_character(),
+  ..   countries = col_character(),
+  ..   region = col_character(),
+  ..   pf_rol_procedural = col_double(),
+  ..   pf_rol_civil = col_double(),
+  ..   pf_rol_criminal = col_double(),
+  ..   pf_rol = col_double(),
+  ..   pf_ss_homicide = col_double(),
+  ..   pf_ss_disappearances_disap = col_double(),
+  ..   pf_ss_disappearances_violent = col_double(),
+  ..   pf_ss_disappearances_organized = col_double(),
+  ..   pf_ss_disappearances_fatalities = col_double(),
+  ..   pf_ss_disappearances_injuries = col_double(),
+  ..   pf_ss_disappearances = col_double(),
+  ..   pf_ss_women_fgm = col_double(),
+  ..   pf_ss_women_missing = col_double(),
+  ..   pf_ss_women_inheritance_widows = col_double(),
+  ..   pf_ss_women_inheritance_daughters = col_double(),
+  ..   pf_ss_women_inheritance = col_double(),
+  ..   pf_ss_women = col_double(),
+  ..   pf_ss = col_double(),
+  ..   pf_movement_domestic = col_double(),
+  ..   pf_movement_foreign = col_double(),
+  ..   pf_movement_women = col_double(),
+  ..   pf_movement = col_double(),
+  ..   pf_religion_estop_establish = col_double(),
+  ..   pf_religion_estop_operate = col_double(),
+  ..   pf_religion_estop = col_double(),
+  ..   pf_religion_harassment = col_double(),
+  ..   pf_religion_restrictions = col_double(),
+  ..   pf_religion = col_double(),
+  ..   pf_association_association = col_double(),
+  ..   pf_association_assembly = col_double(),
+  ..   pf_association_political_establish = col_double(),
+  ..   pf_association_political_operate = col_double(),
+  ..   pf_association_political = col_double(),
+  ..   pf_association_prof_establish = col_double(),
+  ..   pf_association_prof_operate = col_double(),
+  ..   pf_association_prof = col_double(),
+  ..   pf_association_sport_establish = col_double(),
+  ..   pf_association_sport_operate = col_double(),
+  ..   pf_association_sport = col_double(),
+  ..   pf_association = col_double(),
+  ..   pf_expression_killed = col_double(),
+  ..   pf_expression_jailed = col_double(),
+  ..   pf_expression_influence = col_double(),
+  ..   pf_expression_control = col_double(),
+  ..   pf_expression_cable = col_double(),
+  ..   pf_expression_newspapers = col_double(),
+  ..   pf_expression_internet = col_double(),
+  ..   pf_expression = col_double(),
+  ..   pf_identity_legal = col_double(),
+  ..   pf_identity_parental_marriage = col_double(),
+  ..   pf_identity_parental_divorce = col_double(),
+  ..   pf_identity_parental = col_double(),
+  ..   pf_identity_sex_male = col_double(),
+  ..   pf_identity_sex_female = col_double(),
+  ..   pf_identity_sex = col_double(),
+  ..   pf_identity_divorce = col_double(),
+  ..   pf_identity = col_double(),
+  ..   pf_score = col_double(),
+  ..   pf_rank = col_double(),
+  ..   ef_government_consumption = col_double(),
+  ..   ef_government_transfers = col_double(),
+  ..   ef_government_enterprises = col_double(),
+  ..   ef_government_tax_income = col_double(),
+  ..   ef_government_tax_payroll = col_double(),
+  ..   ef_government_tax = col_double(),
+  ..   ef_government = col_double(),
+  ..   ef_legal_judicial = col_double(),
+  ..   ef_legal_courts = col_double(),
+  ..   ef_legal_protection = col_double(),
+  ..   ef_legal_military = col_double(),
+  ..   ef_legal_integrity = col_double(),
+  ..   ef_legal_enforcement = col_double(),
+  ..   ef_legal_restrictions = col_double(),
+  ..   ef_legal_police = col_double(),
+  ..   ef_legal_crime = col_double(),
+  ..   ef_legal_gender = col_double(),
+  ..   ef_legal = col_double(),
+  ..   ef_money_growth = col_double(),
+  ..   ef_money_sd = col_double(),
+  ..   ef_money_inflation = col_double(),
+  ..   ef_money_currency = col_double(),
+  ..   ef_money = col_double(),
+  ..   ef_trade_tariffs_revenue = col_double(),
+  ..   ef_trade_tariffs_mean = col_double(),
+  ..   ef_trade_tariffs_sd = col_double(),
+  ..   ef_trade_tariffs = col_double(),
+  ..   ef_trade_regulatory_nontariff = col_double(),
+  ..   ef_trade_regulatory_compliance = col_double(),
+  ..   ef_trade_regulatory = col_double(),
+  ..   ef_trade_black = col_double(),
+  ..   ef_trade_movement_foreign = col_double(),
+  ..   ef_trade_movement_capital = col_double(),
+  ..   ef_trade_movement_visit = col_double(),
+  ..   ef_trade_movement = col_double(),
+  ..   ef_trade = col_double(),
+  ..   ef_regulation_credit_ownership = col_double(),
+  ..   ef_regulation_credit_private = col_double(),
+  ..   ef_regulation_credit_interest = col_double(),
+  ..   ef_regulation_credit = col_double(),
+  ..   ef_regulation_labor_minwage = col_double(),
+  ..   ef_regulation_labor_firing = col_double(),
+  ..   ef_regulation_labor_bargain = col_double(),
+  ..   ef_regulation_labor_hours = col_double(),
+  ..   ef_regulation_labor_dismissal = col_double(),
+  ..   ef_regulation_labor_conscription = col_double(),
+  ..   ef_regulation_labor = col_double(),
+  ..   ef_regulation_business_adm = col_double(),
+  ..   ef_regulation_business_bureaucracy = col_double(),
+  ..   ef_regulation_business_start = col_double(),
+  ..   ef_regulation_business_bribes = col_double(),
+  ..   ef_regulation_business_licensing = col_double(),
+  ..   ef_regulation_business_compliance = col_double(),
+  ..   ef_regulation_business = col_double(),
+  ..   ef_regulation = col_double(),
+  ..   ef_score = col_double(),
+  ..   ef_rank = col_double(),
+  ..   hf_score = col_double(),
+  ..   hf_rank = col_double(),
+  ..   hf_quartile = col_double()
+  .. )
+ - attr(*, &quot;problems&quot;)=&lt;externalptr&gt; </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>selected_data</span> <span class='op'>&lt;-</span> <span class='va'>hfi_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>ISO_code</span>, <span class='va'>countries</span>, <span class='va'>region</span>, <span class='va'>pf_score</span>, <span class='va'>pf_expression_control</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># hfi_data %&gt;% </span></span>
+<span> <span class='co'># select(pf_score, pf_expression_control, hfi_data) %&gt;% </span></span>
+<span> <span class='co'># ggpairs()</span></span></code></pre>
+</div>
+</div>
+<p>Note that a warning message (really a list of warning messages) might display in your <strong>Console</strong> and likely under your R code chunk when you knit this report.
+In R, warning messages are not necessarily a bad thing and you should read these to make sure you understand what it is informing you of.
+To suppress warning messages from displaying after this specific R code chunk when you knit your report, add the follow inside the curly brackets (<code>{r }</code>) at the top of your R code chunk (notice the preceding comma): <code>, warning=FALSE</code>.</p>
+<p>Somewhat related… If you do not want all the messages <code>{tidyverse}</code> and <code>{tidymodels}</code> produce when you load them, you can add <code>, message=FALSE</code> to your <code>load-packages</code> R code chunk.</p>
+<p>After running the <code>pairs-plot</code> code, answer the following questions:</p>
+<ol type="1">
+<li><p>For each pair of variables, how would you describe the relationship graphically?
+Do any of the relationships look linear?
+Are there any interesting/odd features (outliers, non-linear patterns, etc.)?</p></li>
+<li><p>For each pair of variables, how would you describe the relationship numerically?</p></li>
+<li><p>Are your two explanatory variables collinear (correlated)?
+Essentially, this means that adding more than one of these variables to the model would not add much value to the model.
+We will talk more on this issue in Activity 4 (other considerations in regression models).</p></li>
+</ol>
+<h2 id="the-multiple-linear-regression-model">The multiple linear regression model</h2>
+<p>You will now fit the following model:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 \times x_1 + \beta_2 \times x_2 + \varepsilon
+\]</span></p>
+<ul>
+<li>In the code chunk below titled <code>mlr-model</code>, replace “verbatim” with “r” just before the code chunk title.</li>
+<li>Replace <code>explanatory</code>, similarly to what you did in your <code>pairs-plot</code> R code chunk.</li>
+<li>Run your code chunk or knit your document.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#fit the mlr model</span></span>
+<span><span class='va'>lm_spec</span> <span class='op'>&lt;-</span> <span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>set_mode</span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>set_engine</span><span class='op'>(</span><span class='st'>"lm"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>lm_spec</span></span></code></pre>
+</div>
+<pre><code>Linear Regression Model Specification (regression)
+
+Computational engine: lm </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># mlr_mod &lt;- lm_spec %&gt;% </span></span>
+<span><span class='co'># fit(pf_score ~ pf_expression_control + explanatory, data = hfi_2016)</span></span>
+<span></span>
+<span><span class='co'># model output</span></span>
+<span><span class='co'># tidy(mlr_mod)</span></span></code></pre>
+</div>
+</div>
+<p>After doing this, answer the following questions:</p>
+<ol start="4" type="1">
+<li>Using your output, write the complete estimated equation for this model.
+Remember in Activity 2 that this looked like:</li>
+</ol>
+<p><span class="math display">\[
+\hat{y} = b_0 + b_1 \times x_1
+\]</span></p>
+<p>where <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> were your model parameter estimates.
+Note that your model here will be different (and have more terms).</p>
+<ol start="5" type="1">
+<li>For each of the estimated parameters (the <em>y</em>-intercept and the slopes associated with each explanatory variable - three total), interpret these values in the context of this problem.
+That is, what do they mean for a “non-data” person?</li>
+</ol>
+<h2 id="challenge-3-d-plots">Challenge: 3-D plots</h2>
+<p>In <em>ISL</em>, the authors provided a 3-D scatterplot with a plane that represents the estimated model.
+Do some internet sleuthing to minimally produce a 3-D scatterplot (you do not need to include the plane).
+Ideally, this would be something that plays nicely with (looks similar to) <code>{ggplot2}</code>.</p>
+<ul>
+<li>Create a new R code chunk, with a descriptive name, and add your code to create this plot.</li>
+</ul>
+<p>After doing this, respond to the following prompt:</p>
+<ol start="6" type="1">
+<li>Compare your 3-D scatterplot and the <code>GGally::ggpairs</code> output.
+Comment on the strengths and weaknesses of these two visualizations.
+Do both display on GitHub when you push your work there?</li>
+</ol>
+<h1 id="day-2">Day 2</h1>
+<p>During Day 1, you fit a model with one quantitative response variable and two quantitative explanatory variables.
+Now we look at a model with one quantitative explanatory variable and one qualitative explanatory variable.
+We will use the full 2016 dataset for this entire activity.
+For the Mini-Competition next week, you will be instructed to use the train/test split process.</p>
+<h2 id="fitting-the-overall-model">Fitting the overall model</h2>
+<p>This is similar to what we have already been doing - fitting our desired model.
+For today’s activity, we will fit something like:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 \times \text{qualitative\\_variable} + \beta_2 \times \text{quantitative\\_variable} + \varepsilon
+\]</span></p>
+<p>where <span class="math inline">\(y\)</span>, <span class="math inline">\(\text{qualitative\\_variable}\)</span>, and <span class="math inline">\(\text{quantitative\\_variable}\)</span> are from <code>hfi_2016</code>.
+Note that the two explanatory variables can be entered in whatever order.</p>
+<p>To help with interpretability, we will focus on qualitative predictor variables with only two levels.
+Unfortunately, none of the current <code>chr</code> variables have only two levels.
+Fortunately, we can create our own.</p>
+<ul>
+<li>In the code chunk below titled <code>binary-pred</code>, replace “verbatim” with “r” just before the code chunk title.</li>
+<li>Run your code chunk or knit your document.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>hfi_2016</span> <span class='op'>&lt;-</span> <span class='va'>hfi_2016</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>west_atlantic <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>region</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"North America"</span>, <span class='st'>"Latin America &amp; the Caribbean"</span><span class='op'>)</span>,</span>
+<span>    <span class='st'>"No"</span>,</span>
+<span>    <span class='st'>"Yes"</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<ol start="7" type="1">
+<li>What is happening in the above code? What new variable did we create? How do you know it is new? What values does it take when?</li>
+</ol>
+<ul>
+<li>In the code chunk below titled <code>qual-mlr</code>, replace “verbatim” with “r” just before the code chunk title.</li>
+<li>Run your code chunk or knit your document.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># review any visual patterns</span></span>
+<span><span class='va'>hfi_2016</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>pf_score</span>, <span class='va'>west_atlantic</span>, <span class='va'>pf_expression_control</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggobi.github.io/ggally/reference/ggpairs.html'>ggpairs</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<img src="MLR_files/figure-html5/qual-mlr-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#fit the mlr model</span></span>
+<span><span class='va'>lm_spec</span> <span class='op'>&lt;-</span> <span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>set_mode</span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>set_engine</span><span class='op'>(</span><span class='st'>"lm"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>qual_mod</span> <span class='op'>&lt;-</span> <span class='va'>lm_spec</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>fit</span><span class='op'>(</span><span class='va'>pf_score</span> <span class='op'>~</span> <span class='va'>west_atlantic</span> <span class='op'>+</span> <span class='va'>pf_expression_control</span>, data <span class='op'>=</span> <span class='va'>hfi_2016</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># model output</span></span>
+<span><span class='fu'>tidy</span><span class='op'>(</span><span class='va'>qual_mod</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 3 × 5
+  term                  estimate std.error statistic  p.value
+  &lt;chr&gt;                    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)              4.38     0.213     20.5   1.57e-46
+2 west_atlanticYes        -0.102    0.167     -0.612 5.41e- 1
+3 pf_expression_control    0.540    0.0273    19.8   1.01e-44</code></pre>
+</div>
+<p>When looking at your <code>ggpairs</code> output, remember to ask yourself, “does it make sense to include all of these variables?”
+Specifically, if you notice that the response variables are highly correlated (collinear), including both does not necessarily add much value as they are essentially saying the same thing.
+Note: There are more advanced methods to include the variability within a rater for our model - this is beyond STA 631.
+If this sounds of interest to you, explore <em>generalized estimating equations</em> (GEE) or <em>generalized linear mixed models</em> (GLMM).
+However, there are often times when we choose to include variables in our model because it is important to us - for various reasons.
+Regardless, I encourage you to keep your readings of <em>DF</em> in mind - who will benefit by including this information; who will be hurt by including this information?</p>
+<p>Also, when looking at your model (<code>tidy</code>) output, the <code>term</code> label for your qualitative explanatory variable look odd.
+Answer the following questions:</p>
+<ol start="8" type="1">
+<li><p>What is the label that R assigned to this explanatory variable <code>term</code>?</p></li>
+<li><p>What information is represented here?</p></li>
+<li><p>What information is missing here?</p></li>
+</ol>
+<p>Your are essentially fitting two models (or <span class="math inline">\(k\)</span> models, where <span class="math inline">\(k\)</span> is the number of levels in your qualitative variable).
+From your reading, you learned that R is creating an indicator variable (see p. 83).
+If you have 3 levels in your qualitative variable, you would have 2 (3 - 1) indicator variables.
+If you have <span class="math inline">\(k\)</span> levels in your qualitative variable, you would have <span class="math inline">\(k - 1\)</span> indicator variables.</p>
+<p>The decision for R to call the indicator variable by one of your levels instead of the other has no deeper meaning.
+R simply codes the level that comes first alphabetically with a <span class="math inline">\(0\)</span> for your indicator variable.
+You can change this reference level of a categorical variable, which is the level that is coded as a 0, using the <code>relevel</code> function.
+Use <code>?relevel</code> to learn more.</p>
+<ol start="11" type="1">
+<li><p>Write the estimated equation for your MLR model with a qualitative explanatory variable.</p></li>
+<li><p>Now, for each level of your qualitative variable, write the simplified equation of the estimated line for that level.
+Note that if your qualitative variable has two levels, you should have two simplified equations.</p></li>
+</ol>
+<p>The interpretation of the coefficients (parameter estimates) in multiple regression is slightly different from that of simple regression.
+The estimate for the indicator variable reflects how much more a group is expected to be if something has that quality, <em>while holding all other variables constant</em>.
+The estimate for the quantitative variable reflects how much change in the response variable occurs due to a 1-unit increase in the quantitative variable, <em>while holding all other variables constant</em>.</p>
+<ol start="13" type="1">
+<li><p>Interpret the parameter estimate for the reference level of your categorical variable in the context of your problem.
+Page 83 of the text can help here (or have me come chat with you).</p></li>
+<li><p>Interpret the parameter estimate for your quantitative variable in the context of your problem.</p></li>
+</ol>
+<h2 id="challenge-multiple-levels">Challenge: Multiple levels</h2>
+<p>Below, create a new R code chunk (with a descriptive name) that fits a new model with the same response (<code>pf_score</code>) and quantitative explanatory variable (<code>pf_expression_control</code>), but now use a qualitative variable with more than two levels (say, <code>region</code>) and obtain the <code>tidy</code> model output.
+How does R appear to handle categorical variables with more than two levels?</p>
+<h1 id="day-3">Day 3</h1>
+<p>We will explore a MLR model with an interaction between quantitative and qualitative explanatory variables as well as see some other methods to assess the fit of our model.
+From the modeling process we came up with as a class, we will now address the “series of important questions that we should consider when performing multiple linear regression” (<em>ISL</em> <a href="https://hastie.su.domains/ISLR2/ISLRv2_website.pdf">Section 3.2.2</a>, p. 75):</p>
+<ol type="1">
+<li>Is at least one of the <span class="math inline">\(p\)</span> predictors <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(X_p\)</span> useful in predicting the response <span class="math inline">\(Y\)</span>?</li>
+<li>Do all the predictors help to explain <span class="math inline">\(Y\)</span>, or is only a subset of the predictors useful?</li>
+<li>How well does the model fit the data?</li>
+<li>Given a set of predictor values, what response value should we predict and how accurate is our prediction?</li>
+</ol>
+<p>Note that the text (<em>ISLR</em>) covers interactions between two quantitative explanatory variables as well.
+By including an interaction term in our model, it may seem like we are relaxing the “additive assumption” a little.
+However, the additive assumption is about the coefficients (the <span class="math inline">\(\beta\)</span>s) and not the variables.</p>
+<h2 id="fitting-the-overall-model-with-qualitative-times-quantitative-interaction">Fitting the overall model with <span class="math inline">\(qualitative \times quantitative\)</span> interaction</h2>
+<p>Recall from Day 2 that you explored the model:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 \times \text{qualitative\\_variable} + \beta_2 \times \text{quantitative\\_variable} + \varepsilon
+\]</span></p>
+<p>Today we will explore a similar model, except that also includes the interaction between your qualitative and quantitative explanatory variables.
+That is,</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 \times \text{qualitative\\_variable} + \beta_2 \times \text{quantitative\\_variable} + \beta_3 \times ( \text{qualitative\\_variable} \times \text{quantitative\\_variable}) + \varepsilon
+\]</span></p>
+<ul>
+<li>Run all previous code up to this point - you will need your prior dataset of just 2016 observations with the <code>west_atlantic</code> variable.</li>
+<li>In the code chunk below titled <code>int-mlr</code>, replace “verbatim” with “r” just before the code chunk title.</li>
+<li>Run your code chunk or knit your document.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># review any visual patterns</span></span>
+<span><span class='va'>hfi_2016</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>pf_score</span>, <span class='va'>west_atlantic</span>, <span class='va'>pf_expression_control</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggobi.github.io/ggally/reference/ggpairs.html'>ggpairs</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<img src="MLR_files/figure-html5/int-mlr-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#fit the mlr model</span></span>
+<span><span class='va'>lm_spec</span> <span class='op'>&lt;-</span> <span class='fu'>linear_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>set_mode</span><span class='op'>(</span><span class='st'>"regression"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>set_engine</span><span class='op'>(</span><span class='st'>"lm"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>int_mod</span> <span class='op'>&lt;-</span> <span class='va'>lm_spec</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>fit</span><span class='op'>(</span><span class='va'>pf_score</span> <span class='op'>~</span> <span class='va'>west_atlantic</span> <span class='op'>*</span> <span class='va'>pf_expression_control</span>, data <span class='op'>=</span> <span class='va'>hfi_2016</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># model output</span></span>
+<span><span class='fu'>tidy</span><span class='op'>(</span><span class='va'>int_mod</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 4 × 5
+  term                           estimate std.error statistic  p.value
+  &lt;chr&gt;                             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)                       5.72     0.459      12.5  2.76e-25
+2 west_atlanticYes                 -1.60     0.484      -3.30 1.18e- 3
+3 pf_expression_control             0.296    0.0789      3.75 2.45e- 4
+4 west_atlanticYes:pf_expressio…    0.275    0.0838      3.28 1.26e- 3</code></pre>
+</div>
+<p>Note that I shortened the model statement using <code>qualitative * quantitative</code>, but this can sometimes be confusing to read.
+Another way to write the right-hand side of the equation is: <code>qualitative + quantitative + qualitative * quantitative</code>.</p>
+<p>After doing this, answer the following question:</p>
+<ol start="15" type="1">
+<li><p>When viewing the <code>tidy</code> output, notice that the interaction term is listed as <code>qualitativelevel:quantitative</code>.
+Referring back to Day 2 with how R displays qualitative variables, interpret what this syntax means.</p></li>
+<li><p>Using page 100 of <em>ISLR</em> as a reference, if needed, and your work from Day 2, write the simplified equation of the line corresponding to each level of your qualitative explanatory variable.</p></li>
+<li><p>For two observations with similar values of the quantitative , which level tends to have higher values of the response variable?</p></li>
+<li><p>Like you did in Day 1, assess the fit of this model (no need to do any formal hypothesis testing - we will explore this next).
+How does <code>int_mod</code>’s fit compare to <code>mlr_mod</code>?
+What did you use to compare these?
+Why?</p></li>
+</ol>
+<p>Recall our brief discussion on how many disciplines are moving away from <span class="math inline">\(p\)</span>-values in favor of other methods.
+We will explore <span class="math inline">\(p\)</span>-values these other methods later this semester, but we will practice our classical methods here.
+This is known as an “overall <span class="math inline">\(F\)</span> test” and the hypotheses are:</p>
+<p>That (the null) no predictors are useful for the model (i.e., all slopes are equal to zero) versus the alternative that at least one predictor is useful for the model (i.e., at least one slope is not zero).
+One way to check this is to build our null model (no predictors) and then compare this to our candidate model (<code>int_mod</code>).</p>
+<ul>
+<li>In the code chunk below titled <code>mod-comp</code>, replace “verbatim” with “r” just before the code chunk title.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># null model</span></span>
+<span><span class='co'># null_mod &lt;- lm_spec %&gt;% </span></span>
+<span><span class='co'># fit(response ~ 1, data = data)</span></span>
+<span></span>
+<span><span class='co'># anova(</span></span>
+<span>  <span class='co'># extract_fit_engine(int_mod),</span></span>
+<span>  <span class='co'># extract_fit_engine(null_mod)</span></span>
+<span><span class='co'># )</span></span></code></pre>
+</div>
+</div>
+<ol start="19" type="1">
+<li>Using your background knowledge of <span class="math inline">\(F\)</span> tests, what is the <span class="math inline">\(F\)</span> test statistic and <span class="math inline">\(p\)</span>-value for this test?
+Based on an <span class="math inline">\(\alpha = 0.05\)</span> significant level, what should you conclude?</li>
+</ol>
+<h2 id="partial-slope-test---do-all-predictors-help-explain-y">Partial slope test - do all predictors help explain <span class="math inline">\(y\)</span>?</h2>
+<p>Assuming that your overall model is significant (at least one predictor is useful), we will continue on.
+Continue through these next tasks even if your overall model was not significant.</p>
+<p>We could do a similar process to fit a new model while removing one explanatory variable at at time, and using <code>anova</code> to compare these models.
+However, the <code>tidy</code> output also helps here (the <code>statistic</code> and <code>p.value</code> columns).</p>
+<p>For each slope, you are testing if that slope is zero (when including the other variables, the null) or if it is not zero (when including the other variables, the alternative).
+Because the interaction term is a combination of the other two variables, we should assess the first.</p>
+<ol start="20" type="1">
+<li>What is the <span class="math inline">\(t\)</span> test statistic and <span class="math inline">\(p\)</span>-value associated with this test?
+Based on an <span class="math inline">\(\alpha = 0.05\)</span> significant level, what should you conclude?</li>
+</ol>
+<p>If your interaction term was not significant, you could consider removing it.
+Now look at your two non-interaction terms…</p>
+<ol start="21" type="1">
+<li>What are the <span class="math inline">\(t\)</span> test statistic and <span class="math inline">\(p\)</span>-value associated with these tests?
+Based on an <span class="math inline">\(\alpha = 0.05\)</span> significant level, what should you conclude about these two predictors?</li>
+</ol>
+<p>You would not need to do (21) if the interaction was significant.
+You also should not remove a main variable (non-interaction variable) if the interaction variable remains in your model.</p>
+<h2 id="residual-assessment---how-well-does-the-model-fit-the-data">Residual assessment - how well does the model fit the data?</h2>
+<p>You have already done this step in past activities by exploring your residuals (Activity 2).
+Using your final model from Task 3, assess how well your model fits the data.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

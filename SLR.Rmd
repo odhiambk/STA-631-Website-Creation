@@ -1,6 +1,5 @@
 ---
 title: "Simple Linear Regression"
-author: "Karlmarx Odhiambo"
 output: distill::distill_article
 ---
 

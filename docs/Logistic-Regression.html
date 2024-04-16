@@ -88,29 +88,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>Karlmarx Odhiambo Portfolio</title>
+  <title>Karlmarx Odhiambo Portfolio: Logistic Regression</title>
 
-  <meta property="description" itemprop="description" content="Welcome to my website. I hope you enjoy it!"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Karlmarx Odhiambo Portfolio"/>
+  <meta property="og:title" content="Karlmarx Odhiambo Portfolio: Logistic Regression"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Welcome to my website. I hope you enjoy it!"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Karlmarx Odhiambo Portfolio"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Karlmarx Odhiambo Portfolio"/>
-  <meta property="twitter:description" content="Welcome to my website. I hope you enjoy it!"/>
+  <meta property="twitter:title" content="Karlmarx Odhiambo Portfolio: Logistic Regression"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site","navbar","output"]}},"value":[{"type":"character","attributes":{},"value":["Karlmarx Odhiambo Portfolio"]},{"type":"character","attributes":{},"value":["Welcome to my website. I hope you enjoy it!\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["left"]}},"value":[{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["text","href"]}},"value":[{"type":"character","attributes":{},"value":["Professional Summary"]},{"type":"character","attributes":{},"value":["professional_summary.html"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["text","href"]}},"value":[{"type":"character","attributes":{},"value":["myCV"]},{"type":"character","attributes":{},"value":["my_cv.html"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["text","href"]}},"value":[{"type":"character","attributes":{},"value":["SLR"]},{"type":"character","attributes":{},"value":["slr.html"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["text","href"]}},"value":[{"type":"character","attributes":{},"value":["MLR"]},{"type":"character","attributes":{},"value":["mlr.html"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["text","href"]}},"value":[{"type":"character","attributes":{},"value":["Logistic Regression"]},{"type":"character","attributes":{},"value":["logistic_regression"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["text","href"]}},"value":[{"type":"character","attributes":{},"value":["Project Proposal"]},{"type":"character","attributes":{},"value":["project_proposal.html"]}]}]}]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["Logistic Regression"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2119,7 +2116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Karlmarx Odhiambo Portfolio","description":"Welcome to my website. I hope you enjoy it!","authors":[]}
+{"title":"Logistic Regression","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2147,16 +2144,474 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Karlmarx Odhiambo Portfolio</h1>
+<h1>Logistic Regression</h1>
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Welcome to my website. I hope you enjoy it!</p></p>
+
 </div>
 
 
 <div class="d-article">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="load-the-necessary-packages">Load the necessary packages</h2>
+<p>Again, we will use two packages from Posit: <code>{tidyverse}</code> and <code>{tidymodels}</code>.</p>
+<ul>
+<li>Below a new R code chunk and write the code to:
+<ul>
+<li>Load <code>{tidyverse}</code> and <code>{tidymodels}</code> and any other packages you want to use.</li>
+</ul></li>
+<li>Give your R code chunk a meaningful name, then run your code chunk or knit your document.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidymodels.tidymodels.org'>tidymodels</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="load-the-data">Load the data</h2>
+<h3 id="the-data">The data</h3>
+<p>The data we are working with is again from the OpenIntro site.
+From OpenIntro’s <a href="https://www.openintro.org/data/index.php?data=resume">description of the data</a>:</p>
+<blockquote>
+<p>This experiment data comes from a study that sought to understand the influence of race and gender on job application callback rates.
+The study monitored job postings in Boston and Chicago for several months during 2001 and 2002 and used this to build up a set of test cases.
+Over this time period, the researchers randomly generating résumés to go out to a job posting, such as years of experience and education details, to create a realistic-looking résumé.
+They then randomly assigned a name to the résumé that would communicate the applicant’s gender and race.
+The first names chosen for the study were selected so that the names would predominantly be recognized as belonging to black or white individuals.
+For example, Lakisha was a name that their survey indicated would be interpreted as a black woman, while Greg was a name that would generally be interpreted to be associated with a white male.</p>
+</blockquote>
+<p>Review the description page.
+If you still have questions, review the <strong>Source</strong> (also linked to shortly) at the bottom of the description page.
+On an initial reading, there are some concerns with how this study is designed.
+In <a href="https://www.nber.org/system/files/working_papers/w9873/w9873.pdf">the article</a>, the authors do point out some of these concerns (in Sections 3.5 and 5.1).</p>
+<p>Read in the <code>resume</code> <strong>CSV</strong> file that is in <code>day01-logistic/data</code>.</p>
+<ul>
+<li>Below, create a new R code chunk and write the code to:
+<ul>
+<li><em>Read</em> in the <em>CSV</em> file from the <code>data</code> folder and store it in an R dataframe called <code>resume</code>.</li>
+</ul></li>
+<li>Give your R code chunk a meaningful name, then run your code chunk or knit your document.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>resume</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"C:/Users/karlm/OneDrive/Documents/STA 631/activity06-logistic-regression/day01-logistic/data/resume.csv"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>Recall that you can use <code>dplyr::glimpse</code> to see some meta information about the R data frame.
+After doing this and your review of the data’s description page, answer the following questions:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='va'><a href='https://pillar.r-lib.org/reference/glimpse.html'>glimpse</a></span></span></code></pre>
+</div>
+<pre><code>function (x, width = NULL, ...) 
+{
+    UseMethod(&quot;glimpse&quot;)
+}
+&lt;bytecode: 0x000001754853fa20&gt;
+&lt;environment: namespace:pillar&gt;</code></pre>
+</div>
+<ol type="1">
+<li>Is this an observational study or an experiment?
+Explain.</li>
+</ol>
+<p><em>This is an observational study because the researchers aim to understand the influence of race and gender on job application callback rates. They use the data already provided to come to a conclusion</em></p>
+<ol start="2" type="1">
+<li><p>The variable of interest is <code>received_callback</code>.
+What type of variable is this? <em>response/dependent variable</em>
+What do the values represent? <em>the values represent the proportions of applicants who received call backs on the applications</em></p></li>
+<li><p>For <code>received_callback</code>, create an appropriate data visualization using <code>{ggplot2}</code>.
+Be sure to provide more descriptive labels (both axes labels and value labels - there are many ways to do this) as well as an appropriate title.</p></li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># ggplot2</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>resume</span>, </span>
+<span>       <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>received_callback</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Total Number of People who Recieved Callback"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Received Callback"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Total Number of People"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="Logistic-Regression_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Create a bar plot for received_callback</span></span>
+<span><span class='va'>received_callback_plot</span> <span class='op'>&lt;-</span> <span class='va'>resume</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>received_callback</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>..prop..</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='st'>"skyblue"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/percent_format.html'>percent</a></span><span class='op'>(</span><span class='va'>..prop..</span><span class='op'>)</span>,</span>
+<span>                y <span class='op'>=</span> <span class='va'>..prop..</span><span class='op'>)</span>, </span>
+<span>            stat <span class='op'>=</span> <span class='st'>"count"</span>, vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Proportion of Applicants Who Received Callbacks"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Received Callback"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Proportion"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org/reference/percent_format.html'>percent</a></span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='va'>received_callback_plot</span></span></code></pre>
+</div>
+<p><img src="Logistic-Regression_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<ol start="4" type="1">
+<li>Below, I provide you with a numerical summary table that should reiterate (i.e., provides numerical values) your plot in (3).
+First, look at each line of code and describe what I am doing.
+Then, replace “verbatim” with “r” before the code chunk title to produce this table.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>resume</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>received_callback <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>received_callback</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"No"</span>,</span>
+<span>    <span class='va'>received_callback</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Yes"</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>received_callback</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>percent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>n</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>100</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">received_callback</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">4478</td>
+<td style="text-align: right;">91.95</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">392</td>
+<td style="text-align: right;">8.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol start="5" type="1">
+<li>Using the output from (3) and (4), what do you notice?</li>
+</ol>
+<p><em>92% of applicants did not receive callbacks.</em></p>
+<h2 id="probability-and-odds">Probability and odds</h2>
+<p>Using your output from (3) and (4), answer the following questions:</p>
+<ol start="6" type="1">
+<li>What is the probability that a randomly selected résumé/person will be called back?</li>
+</ol>
+<p><em>0.08</em></p>
+<ol start="7" type="1">
+<li>What are the <a href="https://en.wikipedia.org/wiki/Odds"><strong>odds</strong></a> that a randomly selected résumé/person will be called back?</li>
+</ol>
+<p><em>0.08 / (1 - 0.08)</em> = <em>0.087</em></p>
+<h2 id="logistic-regression">Logistic regression</h2>
+<p>Logistic regression is one form of a <em>generalized linear model</em>.
+For this type of model, the outcome/response variable takes one one of two levels (sometimes called a binary variable or a two-level categorical variable).</p>
+<p>In our activity, <span class="math inline">\(Y_i\)</span> takes the value 1 if a résumé receives a callback and 0 if it did not.
+Generally, we will let the probability of a “success” (a 1) be <span class="math inline">\(p_i\)</span> and the probability of a “failure” (a 0) be <span class="math inline">\(1 - p_i\)</span>.
+Therefore, the odds of a “success” are:</p>
+<p><span class="math display">\[
+\frac{Pr(Y_i = 1)}{Pr(Y_i = 0)} = \frac{p_i}{1-p_i}
+\]</span></p>
+<p>From your reading, you saw that we use the <em>logit function</em> (or <em>log odds</em>) to model binary outcome variables:</p>
+<p><span class="math display">\[
+\begin{equation*}
+\log\left(\frac{p_i}{1-p_i}\right) = \beta_0 + \beta_1 X
+\end{equation*}
+\]</span></p>
+<p>To keep things simpler, we will first explore a logistic regression model with a two-level categorical explanatory variable: <code>race</code> - the inferred race associated to the first name on the résumé.
+Below is a two-way table (also known as a contingency table or crosstable), where the rows are the response variable levels, the columns are the explanatory variable levels, and the cells are the percent (and number of in parentheses).
+Note that the values in each column add to 100%.
+Replace “verbatim” with “r” before the code chunk title to produce this table.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>resume</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>received_callback <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>received_callback</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"No"</span>,</span>
+<span>    <span class='va'>received_callback</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Yes"</span></span>
+<span>  <span class='op'>)</span>,</span>
+<span>  race <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>race</span> <span class='op'>==</span> <span class='st'>"black"</span> <span class='op'>~</span> <span class='st'>"Black"</span>,</span>
+<span>    <span class='va'>race</span> <span class='op'>==</span> <span class='st'>"white"</span> <span class='op'>~</span> <span class='st'>"White"</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>race</span>, <span class='va'>received_callback</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>percent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>n</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>100</span>, <span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>         percent_n <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"{percent} ({n})"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>received_callback</span>, <span class='va'>race</span>, <span class='va'>percent_n</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span></span>
+<span>    names_from <span class='op'>=</span> <span class='va'>race</span>,</span>
+<span>    values_from <span class='op'>=</span> <span class='va'>percent_n</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">received_callback</th>
+<th style="text-align: left;">Black</th>
+<th style="text-align: left;">White</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">93.55 (2278)</td>
+<td style="text-align: left;">90.35 (2200)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">6.45 (157)</td>
+<td style="text-align: left;">9.65 (235)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Using the above table, answer the following question:</p>
+<ol start="6" type="1">
+<li>What is the probability that a randomly selected résumé/person perceived as Black will be called back?</li>
+</ol>
+<p><em>0.0645</em></p>
+<ol start="7" type="1">
+<li>What are the <strong>odds</strong> that a randomly selected résumé/person perceived as Black will be called back?</li>
+</ol>
+<p><em>0.0645 / (1 - 0.0645</em> = <em>0.0689</em></p>
+<p>This process of calculating conditional (e.g., if a résumé/person perceived as Black is called back) odds will be helpful as we fit our logistic model.
+We will now begin to use the <code>{tidymodel}</code> method for fitting models.
+A similar approach could be used for linear regression models and you are encouraged to find out how to do this in your past activities.</p>
+<ul>
+<li>Replace “verbatim” with “r” before the code chunk title to produce the logistic model output.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># The {tidymodels} method for logistic regression requires that the response be a factor variable</span></span>
+<span><span class='va'>resume</span> <span class='op'>&lt;-</span> <span class='va'>resume</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>received_callback <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>received_callback</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>logistic_spec</span> <span class='op'>&lt;-</span> <span class='fu'>logistic_reg</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>set_engine</span><span class='op'>(</span><span class='st'>"glm"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>logistic_spec</span></span></code></pre>
+</div>
+<pre><code>Logistic Regression Model Specification (classification)
+
+Computational engine: glm </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>resume_mod</span> <span class='op'>&lt;-</span> <span class='va'>logistic_spec</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>fit</span><span class='op'>(</span><span class='va'>received_callback</span> <span class='op'>~</span> <span class='va'>race</span>, data <span class='op'>=</span> <span class='va'>resume</span>, family <span class='op'>=</span> <span class='st'>"binomial"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>tidy</span><span class='op'>(</span><span class='va'>resume_mod</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-2.675</td>
+<td style="text-align: right;">0.083</td>
+<td style="text-align: right;">-32.417</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">racewhite</td>
+<td style="text-align: right;">0.438</td>
+<td style="text-align: right;">0.107</td>
+<td style="text-align: right;">4.083</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>After doing this, respond to the following questions:</p>
+<ol start="8" type="1">
+<li>Write the estimated regression equation.
+Round to 3 digits.</li>
+</ol>
+<p>$
+<span class="math display">\[ \log\left(\frac{p_i}{1-p_i}\right) = -2.408 + 0.221 \times \text{race\_white} \]</span>
+$</p>
+<p>Regression equation = -2.408 + 0.221 * race_white</p>
+<ol start="9" type="1">
+<li>Using your equation in (8), write the <em>simplified</em> estimated regression equation corresponding to résumés/persons perceived as Black.
+Round to 3 digits.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>pi_black</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2.408</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2.408</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>pi_black_rounded</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>pi_black</span>, <span class='fl'>3</span><span class='op'>)</span></span>
+<span><span class='va'>pi_black_rounded</span></span></code></pre>
+</div>
+<pre><code>[1] 0.083</code></pre>
+</div>
+<p>Based on your model, if a randomly selected résumé/person perceived as Black,</p>
+<ol start="10" type="1">
+<li>What are the log-odds that they will be called back?</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>log_odds_black</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>pi_black</span> <span class='op'>/</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>-</span> <span class='va'>pi_black</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>log_odds_black</span></span></code></pre>
+</div>
+<pre><code>[1] -2.408</code></pre>
+</div>
+<ol start="11" type="1">
+<li>What are the odds that they will be called back?
+How does this relate back to your answer from (7)?
+<em>Hint</em>: In (9) you obtained the log-odds (i.e., the natural log-odds).
+How can you back-transform this value to obtain the odds?</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>odds_black</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>log_odds_black</span><span class='op'>)</span></span>
+<span><span class='va'>odds_black</span></span></code></pre>
+</div>
+<pre><code>[1] 0.0899951</code></pre>
+</div>
+<ol start="12" type="1">
+<li>What is the probability that will be called back?
+How does this related back to your answer from (6)?
+<em>Hint</em> Use the odds in (11) to calculate this value.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>pi_from_odds_black</span> <span class='op'>&lt;-</span> <span class='va'>odds_black</span> <span class='op'>/</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>+</span> <span class='va'>odds_black</span><span class='op'>)</span></span>
+<span><span class='va'>pi_from_odds_black</span></span></code></pre>
+</div>
+<pre><code>[1] 0.08256469</code></pre>
+</div>
+<ol start="13" type="1">
+<li>How does the output from following code relate to what you obtained before (8)?
+How can you use it help you answer (12)?
+Replace “verbatim” with “r” before the code chunk title to produce the logistic model output.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span> <span class='co'># tidy(mult_log_mod, exponentiate = TRUE, conf.int = TRUE) %&gt;% </span></span>
+<span>   <span class='co'># knitr::kable(digits = 3)</span></span></code></pre>
+</div>
+</div>
+<h2 id="challenge-extending-to-mulitple-logistic-regression">Challenge: Extending to Mulitple Logistic Regression</h2>
+<p>We will explore the following question: Is there a difference in call back rates in Chicago jobs, after adjusting for the an applicant’s years of experience, years of college, race, and gender?
+Specifically, we will fit the following model, where <span class="math inline">\(\hat{p}\)</span> is the estimated probability of receiving a callback for a job in Chicago.</p>
+<p><span class="math display">\[
+\begin{equation*}
+\log\left(\frac{\hat{p}}{1-\hat{p}}\right) = \hat\beta_0 + \hat\beta_1 \times (\texttt{years\\_experience}) + \hat\beta_2 \times (\texttt{race:White}) + \hat\beta_3 \times (\texttt{gender:male})
+\end{equation*}
+\]</span></p>
+<p>Note that the researchers have the variable labeled <code>gender</code>.
+Like with <code>race</code>, they limited their resume/name generation to only two categorizations: “male” and “female”.
+The authors do not address this decision in their article or provide any context as to what they mean by “gender”.</p>
+<ul>
+<li>Replace “verbatim” with “r” before the code chunk title to produce this table.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>resume_subet</span> <span class='op'>&lt;-</span> <span class='va'>resume</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>job_city</span> <span class='op'>==</span> <span class='st'>"Chicago"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>race <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>         <span class='va'>race</span> <span class='op'>==</span> <span class='st'>"white"</span> <span class='op'>~</span> <span class='st'>"White"</span>,</span>
+<span>         <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"Black"</span></span>
+<span>       <span class='op'>)</span>,</span>
+<span>       gender <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>         <span class='va'>gender</span> <span class='op'>==</span> <span class='st'>"f"</span> <span class='op'>~</span> <span class='st'>"female"</span>,</span>
+<span>         <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"male"</span></span>
+<span>       <span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>received_callback</span>, <span class='va'>years_experience</span>, <span class='va'>race</span>, <span class='va'>gender</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>Describe what the above code does in the context of this problem.</p>
+<h2 id="relationship-exploration">Relationship Exploration</h2>
+<p>There are many variables in this model.
+Let’s explore each explanatory variable’s relationship with the response variable.
+Note that I tried to explore this using <code>GGally::ggbivariate</code>, but kept running into an error that I did not have time to explore.</p>
+<ul>
+<li>Create a new R code chunk and create an appropriate data visualization to explore the relationship between <code>resume_subet</code> and each of the explanatory variables, then run your code chunk or knit your document.</li>
+</ul>
+<p>After doing this, answer the following question:</p>
+<ol start="14" type="1">
+<li>Describe any patterns. What do you notice?</li>
+</ol>
+<h2 id="fitting-the-model">Fitting the model</h2>
+<p>Aside: I kept running into an issue using <code>{tidymodels}</code> to fit this model so I defaulted back to a method that I know works using <code>glm</code>.
+I will keep exploring why I was experiencing issues and update you all with a more modern method later this semester.
+Using the logistic model code above, create a new code chunk below to fit the model to address our research question.</p>
+<p>Focusing on the estimated coefficient for <code>years_experience</code>, we would say:</p>
+<blockquote>
+<p>For each additional year of experience for an applicant in Chicago, we expect the <em>log odds</em> of an applicant receiving a call back to increase by 0.045 units.
+Assuming applicants have similar time in spent in college, similar inferred races, and similar inferred gender.</p>
+</blockquote>
+<p>This interpretation is somewhat confusing because we are describing this in <em>log odds</em>.
+Fortunately, we can convert these back to odds using the following transformation:</p>
+<p><span class="math display">\[
+\text{odds} = e^{\log(\text{odds})}
+\]</span></p>
+<p>You saw how to do this in (13)</p>
+<p>After doing this, answer the following question:</p>
+<ol start="15" type="1">
+<li>Interpret the estimated coefficient for <code>years_experience</code>.</li>
+</ol>
+<h2 id="assessing-model-fit">Assessing model fit</h2>
+<p>Now we want to check the residuals of this model to check the model’s fit.
+As we saw for multiple linear regression, there are various kinds of residuals that try to adjust for various features of the data.
+Two new residuals to explore are <em>Pearson residuals</em> and <em>Deviance residuals</em>.</p>
+<p><strong>Pearson residuals</strong></p>
+<p>The Pearson residual corrects for the unequal variance in the raw residuals by dividing by the standard deviation.</p>
+<p><span class="math display">\[
+\text{Pearson}_i = \frac{y_i - \hat{p}_i}{\sqrt{\hat{p}_i(1 - \hat{p}_i)}}
+\]</span></p>
+<p><strong>Deviance residuals</strong></p>
+<p>Deviance residuals are popular because the sum of squares of these residuals is the deviance statistic.
+We will talk more about this later in the semester.</p>
+<p><span class="math display">\[
+d_i = \text{sign}(y_i - \hat{p}_i)\sqrt{2\Big[y_i\log\Big(\frac{y_i}{\hat{p}_i}\Big) + (1 - y_i)\log\Big(\frac{1 - y_i}{1 - \hat{p}_i}\Big)\Big]}
+\]</span></p>
+<p>Since Pearson residuals are similar to residuals that we have already explored, we will instead focus on the deviance residuals.</p>
+<ul>
+<li>Replace “verbatim” with “r” before the code chunk title to produce this table.
+You might need to update other R objects in this code - my model was called <code>mult_log_mod</code></li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># To store residuals and create row number variable</span></span>
+<span><span class='co'># mult_log_aug &lt;- augment(mult_log_mod, type.predict = "response", </span></span>
+<span>                      <span class='co'># type.residuals = "deviance") %&gt;% </span></span>
+<span>                      <span class='co'># mutate(id = row_number())</span></span>
+<span></span>
+<span><span class='co'># Plot residuals vs fitted values</span></span>
+<span><span class='co'># ggplot(data = mult_log_aug, aes(x = .fitted, y = .resid)) + </span></span>
+<span><span class='co'># geom_point() + </span></span>
+<span><span class='co'># geom_hline(yintercept = 0, color = "red") + </span></span>
+<span><span class='co'># labs(x = "Fitted values", </span></span>
+<span>     <span class='co'># y = "Deviance residuals", </span></span>
+<span>     <span class='co'># title = "Deviance residuals vs. fitted")</span></span>
+<span>     </span>
+<span><span class='co'># Plot residuals vs row number</span></span>
+<span><span class='co'># ggplot(data = mult_log_aug, aes(x = id, y = .resid)) + </span></span>
+<span><span class='co'># geom_point() + </span></span>
+<span><span class='co'># geom_hline(yintercept = 0, color = "red") + </span></span>
+<span><span class='co'># labs(x = "id", </span></span>
+<span>     <span class='co'># y = "Deviance residuals", </span></span>
+<span>     <span class='co'># title = "Deviance residuals vs. id")</span></span></code></pre>
+</div>
+</div>
+<p>Here we produced two residual plots: the deviance residuals against the fitted values and the deviance variables against the index id (an index plot).
+The index plot allows us to easily see some of the more extreme observations - there are a lot (<span class="math inline">\(|d_i| &gt; 2\)</span> is quiet alarming).
+The residual plot may look odd (why are there two distinct lines?!?), but this is a pretty typical shape when working with a binary response variable (the original data is really either a 0 or a 1).
+In general because there are so many extreme values in the index plot, this model leaves room for improvement.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2164,6 +2619,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

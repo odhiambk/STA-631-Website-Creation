@@ -133,10 +133,20 @@ Now, we will obtain graphical and numerical summaries to describe the pairwise r
 - Replace `explanatory` in the `select` line with the variable you identified above
 - Run your code chunk or knit your document.
   
+```{r}
+str(hfi_data)
+```
+ 
+```{r}
+selected_data <- hfi_data %>% 
+  select(year, ISO_code, countries, region, pf_score, pf_expression_control)
+```
+
+  
 ```{r pairs-plot}
-hfi_2016 %>% 
-  select(pf_score, pf_expression_control, hfi_data) %>% 
-  ggpairs()
+# hfi_data %>% 
+ # select(pf_score, pf_expression_control, hfi_data) %>% 
+ # ggpairs()
 ```
 
 Note that a warning message (really a list of warning messages) might display in your **Console** and likely under your R code chunk when you knit this report.
@@ -178,11 +188,11 @@ lm_spec <- linear_reg() %>%
 
 lm_spec
 
-mlr_mod <- lm_spec %>% 
-fit(pf_score ~ pf_expression_control + explanatory, data = hfi_2016)
+# mlr_mod <- lm_spec %>% 
+# fit(pf_score ~ pf_expression_control + explanatory, data = hfi_2016)
 
 # model output
-tidy(mlr_mod)
+# tidy(mlr_mod)
 ```
 
 After doing this, answer the following questions:
@@ -412,13 +422,13 @@ One way to check this is to build our null model (no predictors) and then compar
   
 ```{r mod-comp}
 # null model
-null_mod <- lm_spec %>% 
-fit(response ~ 1, data = data)
+# null_mod <- lm_spec %>% 
+# fit(response ~ 1, data = data)
 
-anova(
-  extract_fit_engine(int_mod),
-  extract_fit_engine(null_mod)
-)
+# anova(
+  # extract_fit_engine(int_mod),
+  # extract_fit_engine(null_mod)
+# )
 ```
 
 19. Using your background knowledge of $F$ tests, what is the $F$ test statistic and $p$-value for this test?
