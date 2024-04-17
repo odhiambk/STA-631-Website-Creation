@@ -408,3 +408,5 @@ Here we produced two residual plots: the deviance residuals against the fitted v
 The index plot allows us to easily see some of the more extreme observations - there are a lot ($|d_i| > 2$ is quiet alarming).
 The residual plot may look odd (why are there two distinct lines?!?), but this is a pretty typical shape when working with a binary response variable (the original data is really either a 0 or a 1).
 In general because there are so many extreme values in the index plot, this model leaves room for improvement.
+
+

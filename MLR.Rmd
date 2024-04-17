@@ -7,6 +7,7 @@ output: distill::distill_article
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
 In the last activity, you might have noticed that I made this Rmd output a document with a type of `github_document` (in the YAML header underneath the title - on line 3) instead of a HTML, Word, or PDF document.
 This produces a GitHub friendly Markdown file that GitHub then renders to HTML.
 You can read more about this output type in RMarkdown's [documentation page](https://rmarkdown.rstudio.com/github_document_format.html) if you want to learn more.

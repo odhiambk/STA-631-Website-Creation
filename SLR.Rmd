@@ -3,6 +3,7 @@ title: "Simple Linear Regression"
 output: distill::distill_article
 ---
 
+
 ### A typical modeling process
 
 The process that we will use for today's activity is:
