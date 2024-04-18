@@ -119,7 +119,6 @@ resume %>%
 ```
 
 
-
 5. Using the output from (3) and (4), what do you notice?
 
 *92% of applicants did not receive callbacks.*
